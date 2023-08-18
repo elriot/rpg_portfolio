@@ -1,0 +1,1 @@
+export const PAGE_SIZE = { width: 960, height: 720 };

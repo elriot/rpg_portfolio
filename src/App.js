@@ -1,24 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import MenuPage from './pages/MenuPage';
+import MapStartPage from './pages/StartingRoomMapPage';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+
 
 function App() {
+  const centeredContainer = "flex items-center justify-center mt-4 relative"
+
+  const handleNavigation = (path) => {
+    if (path === '/map1') {
+      // navigate('/map');
+    }
+    console.log("Navigating to:", path);
+  }
+  const menu = <MenuPage className={centeredContainer} onNavigate={handleNavigation}></MenuPage>;
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={menu} />
+          <Route path="/map1" element={<MapStartPage />} />
+        </Routes>
+      </Router>
+
+      {/* <StartingRoomMapPage></StartingRoomMapPage>  */}
+      <h1 className="text-3xl font-bold text-blue-600 mt-4">Hello, Tailwind CSS!</h1>
+      <p className="mt-2 text-red-700">This is an example of Tailwind CSS usage.</p>
     </div>
+
   );
 }
 
