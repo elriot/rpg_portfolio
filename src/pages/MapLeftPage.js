@@ -3,37 +3,29 @@ import { PAGE_SIZE } from "../util/info";
 import { UNIT_SIZE } from "../util/info";
 import Character from '../components/Character';
 import classnames from 'classnames';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const cols = PAGE_SIZE.width / UNIT_SIZE.width;
 const rows = PAGE_SIZE.height / UNIT_SIZE.height;
-const totalTiles = rows * cols;
 const UP = 'up', DOWN = 'down', LEFT = 'left', RIGHT = 'right';
 const map = [
-    [0,0,0,0,0,1,1,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0],
     [0,1,1,1,1,1,1,1,1,1,1,0],
     [0,1,1,1,1,1,1,1,1,1,1,0],
     [0,1,1,1,1,1,1,1,1,1,1,0],
-    [1,1,1,1,1,1,1,1,1,1,1,0],
+    [0,1,1,1,1,1,1,1,1,1,1,1],
     [0,1,1,1,1,1,1,1,1,1,1,0],
     [0,1,1,1,1,1,1,1,1,1,1,0],
     [0,1,1,1,1,1,1,1,1,1,1,0],
-    [0,0,0,0,0,1,1,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0],
 ];
-const leftDoor = {x:0, y:4};
-
-function MapStartPage() {
+const rightDoor = {x:11, y:4};
+// console.log("left", leftDoor);
+function MapLeftPage() {
     const tiles = [];
+    const [position, setPosition] = useState(rightDoor);
+    const navigation = useNavigate();
 
-    const location = useLocation();
-
-    // state에서 전달된 좌표 정보를 가져옴
-    const initialState = location.state || { x: 0, y: 0 }; // 만약 state가 없다면 기본값을 사용합니다.
-    console.log(location.state, initialState);
-
-    const [position, setPosition] = useState(initialState);
-    const navigate = useNavigate();
-    
     useEffect(() => {
         function handleKeyPress(event) {
             switch (event.key) {
@@ -63,18 +55,19 @@ function MapStartPage() {
 
 
     const moveCharacter = (direction) => {
-        // console.log("move", direction, position);
-        if (direction === DOWN && position.y + 1 < rows && map[position.y+1][position.x] !== 0) {                        
+        if (direction === DOWN && position.y + 1 < rows && map[position.y+1][position.x] !== 0) {            
             setPosition({...position,y: position.y + 1} );
         } else if (direction === UP && position.y - 1 >= 0 && map[position.y-1][position.x] !== 0){
             setPosition({...position,y: position.y - 1});
         } else if (direction === LEFT && position.x - 1 >= 0 && map[position.y][position.x-1] !== 0){
-            if(position.x-1 === leftDoor.x && position.y === leftDoor.y){
-                navigate("/map2", { state: { x: cols-1, y: position.y } });
-            }
             setPosition({...position,x: position.x - 1});
         } else if (direction === RIGHT && position.x + 1 < cols && map[position.y][position.x+1] !== 0){
-            // console.log("right");
+            if(position.x+1 === rightDoor.x && position.y === rightDoor.y){
+                navigation({
+                    pathname: "/map1",
+                    state: { state: { x: cols-1, y: position.y } }
+                })
+            }
             setPosition({...position,x: position.x + 1});
         }
     }
@@ -83,7 +76,7 @@ function MapStartPage() {
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
             let bgColor = map[i][j] === 0 ? "bg-black" : "bg-white";
-            if(i === leftDoor.y && j === leftDoor.x)
+            if(i === rightDoor.y && j === rightDoor.x)
                 bgColor = "bg-red-500";
             
             tiles.push(<div
@@ -93,6 +86,7 @@ function MapStartPage() {
                 }/>);
         }
     }
+
 
     const styles = {
         ...PAGE_SIZE,
@@ -117,4 +111,4 @@ function MapStartPage() {
 
 }
 
-export default MapStartPage;
+export default MapLeftPage;

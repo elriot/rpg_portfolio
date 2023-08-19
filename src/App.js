@@ -2,11 +2,11 @@ import './App.css';
 import MenuPage from './pages/MenuPage';
 import MapStartPage from './pages/MapStartPage';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import MapLeftPage from './pages/MapLeftPage';
 
 
 function App() {
-  const centeredContainer = "flex items-center justify-center mt-4 relative"
-
+  const centeredContainer = "flex items-center justify-center relative" // menu center middle  
   const handleNavigation = (path) => {
     if (path === '/map1') {
       // navigate('/map');
@@ -20,6 +20,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={menu} />
           <Route path="/map1" element={<MapStartPage />} />
+          <Route path="/map2" element={<MapLeftPage />} />
         </Routes>
       </Router>
 
