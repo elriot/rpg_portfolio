@@ -1,6 +1,6 @@
 import './App.css';
 import MenuPage from './pages/MenuPage';
-import MapStartPage from './pages/StartingRoomMapPage';
+import MapStartPage from './pages/MapStartPage';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 
 
