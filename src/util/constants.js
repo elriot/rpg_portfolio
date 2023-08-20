@@ -6,5 +6,6 @@ const LEFT = 'left';
 const RIGHT = 'right';
 const TOP = 'top';
 const BOTTOM = 'bottom';
+const EMTER = 'enter';
 
 export {PAGE_SIZE, UNIT_SIZE, UP, DOWN, LEFT, RIGHT, TOP, BOTTOM};

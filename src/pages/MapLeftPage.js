@@ -20,32 +20,61 @@ const map = [
 const doors = [
     { name:"rightDoor", direction:"right", x: 11, y: 4, link: "/map1", nextPosition: {x: 0, y : 4}},
 ];
+const events = [
+    {name : "hidden", direction: UP, x:1,y:1, text:"hello world!"},
+    {name : "hidden", direction: LEFT, x:3,y:1, text:"test"},
+]
 
 function MapLeftPage() {
     const location = useLocation();
     const initialState = (location.state && location.state.position ) || doors.rightDoor; // 만약 state가 없다면 기본값을 사용합니다.    
 
+    const [chDirection, setChDirection] = useState(UP);
     const [position, setPosition] = useState(initialState);
     const navigate = useNavigate();
 
     useEffect(() => {
         function handleKeyPress(event) {
+            switch (event.key) {
+                case 'ArrowUp':
+                case 'ArrowDown':
+                case 'ArrowLeft':
+                case 'ArrowRight':
+                    handleMove(event.key);
+                    break;
+                case 'Enter':
+                    handleEnter();
+                    break;
+                default:
+                    break;
+            }
+        }
+    
+        function handleMove(key) {
             const movementMap = {
                 ArrowUp: UP,
                 ArrowDown: DOWN,
                 ArrowLeft: LEFT,
-                ArrowRight: RIGHT,
+                ArrowRight: RIGHT,                
             };
-            if (movementMap[event.key]) {
-                moveCharacter(movementMap[event.key]);
+            if (movementMap[key]) {
+                moveCharacter(movementMap[key]);
             }
         }
-
+    
+        function handleEnter() {
+            const currEvent = events.find(e => e.x === position.x && e.y === position.y && e.direction === chDirection)
+            if (currEvent) {
+                console.log(currEvent.text);
+            }
+        }
+    
         window.addEventListener('keydown', handleKeyPress);
         return () => {
             window.removeEventListener('keydown', handleKeyPress);
         };
     }, [position]);
+
 
 
 
@@ -72,6 +101,7 @@ function MapLeftPage() {
             return;
         }
         setPosition(newPosition);
+        setChDirection(direction);
     }
 
     const tiles = Array.from({ length: rows * cols }).map((_, index) => {
@@ -79,6 +109,7 @@ function MapLeftPage() {
         const j = index % cols;
         let tileClass = map[i][j] === 0 ? "bg-black" : "bg-white";
         if (isDoor(doors, i, j)) tileClass = "bg-red-500";
+        if(isDoor(events, i, j)) tileClass = "bg-yellow-500";
         
         return (
             <div
@@ -102,7 +133,7 @@ function MapLeftPage() {
                     top: `${position.y * UNIT_SIZE.height}px`,
                     left: `${position.x * UNIT_SIZE.width}px`
                 }}>
-                    <Character></Character>
+                    <Character direction={chDirection}/>
                 </div>
             </div>
         </div>

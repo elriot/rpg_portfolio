@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {PAGE_SIZE, UNIT_SIZE, UP, DOWN, LEFT, RIGHT, TOP, BOTTOM} from "../util/constants";
 import Character from '../components/Character';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { isDoor } from '../util/doors';
+import { isDoor, isEvent } from '../util/doors';
 import classNames from 'classnames';
 
 const cols = PAGE_SIZE.width / UNIT_SIZE.width;
@@ -24,6 +24,10 @@ const doors = [
     { name:"leftDoor", direction:LEFT, x: 0, y: 4, link: "/map2", nextPosition:{x: cols-1, y : 4} },    
     { name:"topDoor", direction:UP, x: 6, y: 0, link: "/map3", nextPosition:{x: rows-1, y : 4} },
 ];
+const events = [
+    {name : "hidden", direction: UP, x:1,y:1, text:"hello world!"},
+    {name : "hidden", direction: LEFT, x:3,y:1, text:"test"},
+]
 
 
 function MapStartPage() {
@@ -36,17 +40,40 @@ function MapStartPage() {
     
     useEffect(() => {
         function handleKeyPress(event) {
+            switch (event.key) {
+                case 'ArrowUp':
+                case 'ArrowDown':
+                case 'ArrowLeft':
+                case 'ArrowRight':
+                    handleMove(event.key);
+                    break;
+                case 'Enter':
+                    handleEnter();
+                    break;
+                default:
+                    break;
+            }
+        }
+    
+        function handleMove(key) {
             const movementMap = {
                 ArrowUp: UP,
                 ArrowDown: DOWN,
                 ArrowLeft: LEFT,
-                ArrowRight: RIGHT,
+                ArrowRight: RIGHT,                
             };
-            if (movementMap[event.key]) {
-                moveCharacter(movementMap[event.key]);
+            if (movementMap[key]) {
+                moveCharacter(movementMap[key]);
             }
         }
-
+    
+        function handleEnter() {
+            const currEvent = events.find(e => e.x === position.x && e.y === position.y && e.direction === chDirection)
+            if (currEvent) {
+                console.log(currEvent.text);
+            }
+        }
+    
         window.addEventListener('keydown', handleKeyPress);
         return () => {
             window.removeEventListener('keydown', handleKeyPress);
@@ -71,12 +98,13 @@ function MapStartPage() {
 
         const door = doors.find(d => d.x === newPosition.x && d.y === newPosition.y);
         if(door !== undefined && direction === door.direction){            
+            // console.log(door);
             // setTransitionDirection(direction);
             // setTimeout(() => {
                 const positionTo = door.nextPosition;
                 navigate(door.link, { state: {position:positionTo}});  
             // }, 300);           
-            return;          
+            // return;          
         }
 
         setPosition(newPosition);
@@ -89,6 +117,7 @@ function MapStartPage() {
         const j = index % cols;
         let tileClass = map[i][j] === 0 ? "bg-black" : "bg-white";
         if (isDoor(doors, i, j)) tileClass = "bg-red-500";
+        if(isDoor(events, i, j)) tileClass = "bg-yellow-500";
         
         return (
             <div
