@@ -20,3 +20,24 @@
   align-items: center;
   justify-content: center;
 }
+
+/* App.css 혹은 다른 CSS 파일에 추가 */
+.transition-slide {
+  transition: transform 0.3s ease-in-out;
+}
+
+.slide-out-up {
+  transform: translateY(-100%);
+}
+
+.slide-out-down {
+  transform: translateY(100%);
+}
+
+.slide-out-left {
+  transform: translateX(-100%);
+}
+
+.slide-out-right {
+  transform: translateX(100%);
+}
