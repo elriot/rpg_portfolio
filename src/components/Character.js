@@ -1,10 +1,14 @@
 import { UNIT_SIZE } from "../util/constants";
-import chImage from "../images/ch_1_.png";
 
-function Character({ imageUrl }) {
-    return (<div style={{...UNIT_SIZE}} >
-        <img src={chImage} alt="character"/>
-    </div>
+function Character({ direction}) {    
+    console.log(direction);
+    // constc
+    const classes = `character ${direction}`;
+    console.log(classes);
+    return (
+        <div style={{ ...UNIT_SIZE }} className="flex justify-center items-center">
+            <div className={classes}></div>
+        </div>
     );
 }
 export default Character;

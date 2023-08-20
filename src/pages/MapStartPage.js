@@ -20,9 +20,9 @@ const map = [
 ];
 
 const doors = [
-    { name:"enterDoor", direction:BOTTOM, x: 6, y: 8, link: "/map1", nextPosition: null},
+    { name:"enterDoor", direction:DOWN, x: 6, y: 8, link: "/map1", nextPosition: null},
     { name:"leftDoor", direction:LEFT, x: 0, y: 4, link: "/map2", nextPosition:{x: cols-1, y : 4} },    
-    { name:"topDoor", direction:TOP, x: 6, y: 0, link: "/map3", nextPosition:{x: rows-1, y : 4} },
+    { name:"topDoor", direction:UP, x: 6, y: 0, link: "/map3", nextPosition:{x: rows-1, y : 4} },
 ];
 
 
@@ -31,6 +31,7 @@ function MapStartPage() {
     const location = useLocation();
     const initialState = (location.state && location.state.position ) || doors["enterDoor"];
     const [position, setPosition] = useState(initialState);
+    const [chDirection, setChDirection] = useState(UP);
     const navigate = useNavigate();
     
     useEffect(() => {
@@ -52,8 +53,6 @@ function MapStartPage() {
         };
     }, [position]);
 
-
-    const [transitionDirection, setTransitionDirection] = useState(null);
     const moveCharacter = (direction) => {
         const newPosition = { ...position };
         if(direction === UP){
@@ -72,15 +71,16 @@ function MapStartPage() {
 
         const door = doors.find(d => d.x === newPosition.x && d.y === newPosition.y);
         if(door !== undefined && direction === door.direction){            
-            setTransitionDirection(direction);
-            setTimeout(() => {
+            // setTransitionDirection(direction);
+            // setTimeout(() => {
                 const positionTo = door.nextPosition;
                 navigate(door.link, { state: {position:positionTo}});  
-            }, 300);           
+            // }, 300);           
             return;          
         }
 
         setPosition(newPosition);
+        setChDirection(direction);
     }
 
    
@@ -104,7 +104,7 @@ function MapStartPage() {
     };
 
     return (
-        <div className={`relative transition-slide ${transitionDirection ? `slide-out-${transitionDirection}` : ''}`}>
+        <div className={classNames(`relative`, /*`transition-slide ${transitionDirection ? `slide-out-${transitionDirection}` : ''}`*/)}>
             <div className="grid" style={styles}>
                 {tiles}
                 <div style={{
@@ -112,7 +112,7 @@ function MapStartPage() {
                     top: `${position.y * UNIT_SIZE.height}px`,
                     left: `${position.x * UNIT_SIZE.width}px`
                 }}>
-                    <Character />
+                    <Character direction={chDirection}/>
                 </div>
             </div>
         </div>

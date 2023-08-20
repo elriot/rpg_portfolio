@@ -41,3 +41,65 @@
 .slide-out-right {
   transform: translateX(100%);
 }
+
+
+.character {
+  width: 48px;
+  height: 60px;
+  background-image: url('images/ch.png');
+  background-repeat: no-repeat;
+  animation: walkAnim 0.5s steps(3) infinite;
+  scale: 1.2;
+}
+
+@keyframes walkAnimFront {
+  from {
+      background-position: 0px 0px;
+  }
+  to {
+      background-position: -144px 0px;
+  }
+}
+
+@keyframes walkAnimLeft {
+  from {
+      background-position: 0px -60px;
+  }
+  to {
+      background-position: -144px -60px;
+  }
+}
+
+@keyframes walkAnimRight {
+  from {
+      background-position: 0px -120px;
+  }
+  to {
+      background-position: -144px -120px;
+  }
+}
+
+@keyframes walkAnimUp {
+  from {
+      background-position: 0px -180px;
+  }
+  to {
+      background-position: -144px -180px;
+  }
+}
+
+.character.down {
+  animation-name: walkAnimFront;
+}
+
+.character.left {
+  animation-name: walkAnimLeft;
+}
+
+.character.right {
+  animation-name: walkAnimRight;
+}
+
+.character.up {
+  animation-name: walkAnimUp;
+}
