@@ -3,7 +3,7 @@ import { PAGE_SIZE } from "../util/info";
 import { UNIT_SIZE } from "../util/info";
 import Character from '../components/Character';
 import classnames from 'classnames';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const cols = PAGE_SIZE.width / UNIT_SIZE.width;
 const rows = PAGE_SIZE.height / UNIT_SIZE.height;
@@ -23,7 +23,10 @@ const rightDoor = {x:11, y:4};
 // console.log("left", leftDoor);
 function MapLeftPage() {
     const tiles = [];
-    const [position, setPosition] = useState(rightDoor);
+    const location = useLocation();
+    const initialState = (location.state && location.state.position ) || rightDoor; // 만약 state가 없다면 기본값을 사용합니다.    
+
+    const [position, setPosition] = useState(initialState);
     const navigation = useNavigate();
 
     useEffect(() => {
@@ -63,10 +66,7 @@ function MapLeftPage() {
             setPosition({...position,x: position.x - 1});
         } else if (direction === RIGHT && position.x + 1 < cols && map[position.y][position.x+1] !== 0){
             if(position.x+1 === rightDoor.x && position.y === rightDoor.y){
-                navigation({
-                    pathname: "/map1",
-                    state: { state: { x: cols-1, y: position.y } }
-                })
+                navigation("/map1", { state: {position:{ x: 0, y: position.y }} });
             }
             setPosition({...position,x: position.x + 1});
         }

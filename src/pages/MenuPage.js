@@ -2,13 +2,14 @@ import { useNavigate } from "react-router-dom";
 import MenuBox from "../components/MenuBox";
 import { PAGE_SIZE } from "../util/info";
 
+const startDoor = {x:6, y:8};
 function MenuPage ({className, size, onClick}) {    
     const styles = {...PAGE_SIZE, backgroundColor : "black"};
     const navigation = useNavigate();
 
     const handleClickButton = (option) => {
         if (option === 'start') {
-            navigation("/map1", { state: { x: 6, y: 8 } });
+            navigation("/map1", { state: {position : startDoor}});
         } else {
             // console.log("how to ply")
         }

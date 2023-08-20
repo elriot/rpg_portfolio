@@ -10,7 +10,7 @@ const rows = PAGE_SIZE.height / UNIT_SIZE.height;
 const totalTiles = rows * cols;
 const UP = 'up', DOWN = 'down', LEFT = 'left', RIGHT = 'right';
 const map = [
-    [0,0,0,0,0,1,1,0,0,0,0,0],
+    [0,0,0,0,0,0,1,0,0,0,0,0],
     [0,1,1,1,1,1,1,1,1,1,1,0],
     [0,1,1,1,1,1,1,1,1,1,1,0],
     [0,1,1,1,1,1,1,1,1,1,1,0],
@@ -18,19 +18,18 @@ const map = [
     [0,1,1,1,1,1,1,1,1,1,1,0],
     [0,1,1,1,1,1,1,1,1,1,1,0],
     [0,1,1,1,1,1,1,1,1,1,1,0],
-    [0,0,0,0,0,1,1,0,0,0,0,0],
+    [0,0,0,0,0,0,1,0,0,0,0,0],
 ];
 const leftDoor = {x:0, y:4};
+const enterDoor = {x:6, y:8};
+// const rightDoor = {x:}
 
 function MapStartPage() {
     const tiles = [];
 
     const location = useLocation();
-
-    // state에서 전달된 좌표 정보를 가져옴
-    const initialState = location.state || { x: 0, y: 0 }; // 만약 state가 없다면 기본값을 사용합니다.
-    console.log(location.state, initialState);
-
+    const initialState = (location.state && location.state.position ) || enterDoor; // 만약 state가 없다면 기본값을 사용합니다.    
+    console.log(location.state, location.state.position);
     const [position, setPosition] = useState(initialState);
     const navigate = useNavigate();
     
@@ -58,7 +57,7 @@ function MapStartPage() {
         return () => {
             window.removeEventListener('keydown', handleKeyPress);
         };
-    }, [position]);
+    }, []);
 
 
 
@@ -70,7 +69,7 @@ function MapStartPage() {
             setPosition({...position,y: position.y - 1});
         } else if (direction === LEFT && position.x - 1 >= 0 && map[position.y][position.x-1] !== 0){
             if(position.x-1 === leftDoor.x && position.y === leftDoor.y){
-                navigate("/map2", { state: { x: cols-1, y: position.y } });
+                navigate("/map2", { state: {position:{ x: cols-1, y: position.y }} });
             }
             setPosition({...position,x: position.x - 1});
         } else if (direction === RIGHT && position.x + 1 < cols && map[position.y][position.x+1] !== 0){
@@ -79,7 +78,7 @@ function MapStartPage() {
         }
     }
 
-    let key = 0;
+   
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
             let bgColor = map[i][j] === 0 ? "bg-black" : "bg-white";
@@ -87,7 +86,7 @@ function MapStartPage() {
                 bgColor = "bg-red-500";
             
             tiles.push(<div
-                key={key++}
+                key={`${i}-${j}`}
                 className={classnames("border border-gray-300 relative",bgColor,
                         )
                 }/>);
