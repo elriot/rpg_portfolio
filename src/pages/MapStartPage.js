@@ -4,6 +4,7 @@ import Character from '../components/Character';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { isDoor, isEvent } from '../util/doors';
 import classNames from 'classnames';
+import mapImage from '../images/map/map0.png';
 
 const cols = PAGE_SIZE.width / UNIT_SIZE.width;
 const rows = PAGE_SIZE.height / UNIT_SIZE.height;
@@ -96,7 +97,7 @@ function MapStartPage() {
             newPosition.x += 1;
         }
 
-        const door = doors.find(d => d.x === newPosition.x && d.y === newPosition.y);
+        const door = doors.find(d => d.x === position.x && d.y === position.y);
         if(door !== undefined && direction === door.direction){            
             // console.log(door);
             // setTransitionDirection(direction);
@@ -112,20 +113,20 @@ function MapStartPage() {
     }
 
    
-    const tiles = Array.from({ length: rows * cols }).map((_, index) => {
-        const i = Math.floor(index / cols);
-        const j = index % cols;
-        let tileClass = map[i][j] === 0 ? "bg-black" : "bg-white";
-        if (isDoor(doors, i, j)) tileClass = "bg-red-500";
-        if(isDoor(events, i, j)) tileClass = "bg-yellow-500";
+    // const tiles = Array.from({ length: rows * cols }).map((_, index) => {
+    //     const i = Math.floor(index / cols);
+    //     const j = index % cols;
+    //     let tileClass = map[i][j] === 0 ? "bg-black" : "bg-white";
+    //     if (isDoor(doors, i, j)) tileClass = "bg-red-500";
+    //     if(isDoor(events, i, j)) tileClass = "bg-yellow-500";
         
-        return (
-            <div
-                key={`${i}-${j}`}
-                className={`border border-gray-300 relative ${tileClass}`}
-            />
-        );
-    });
+    //     return (
+    //         <div
+    //             key={`${i}-${j}`}
+    //             className={`border border-gray-300 relative ${tileClass}`}
+    //         />
+    //     );
+    // });
 
     const styles = {
         ...PAGE_SIZE,
@@ -135,7 +136,8 @@ function MapStartPage() {
     return (
         <div className={classNames(`relative`, /*`transition-slide ${transitionDirection ? `slide-out-${transitionDirection}` : ''}`*/)}>
             <div className="grid" style={styles}>
-                {tiles}
+                {/* {tiles} */}
+                <img src={mapImage} style={{position:"absolute", zIndex:0, width:"100%", height:"100%"}} alt="map"/>
                 <div style={{
                     position: 'absolute',
                     top: `${position.y * UNIT_SIZE.height}px`,
@@ -143,6 +145,7 @@ function MapStartPage() {
                 }}>
                     <Character direction={chDirection}/>
                 </div>
+                
             </div>
         </div>
     );

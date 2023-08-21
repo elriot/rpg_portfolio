@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import MenuBox from "../components/MenuBox";
-import { PAGE_SIZE } from "../util/info";
+import { PAGE_SIZE } from "../util/constants";
 
 const startDoor = {x:6, y:8};
 function MenuPage ({className, size, onClick}) {    
