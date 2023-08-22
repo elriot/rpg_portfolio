@@ -1,4 +1,6 @@
 import { UNIT_SIZE } from "../util/constants";
+import './Character.css';
+// import './DialogBox.css';
 
 function Character({ direction}) {    
     const classes = `character ${direction}`;
