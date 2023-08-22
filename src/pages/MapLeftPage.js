@@ -146,10 +146,11 @@ function IsEventFromCurrentPosition(characterX, characterY, characterDirection){
 
 function MapLeftPage() {
     const location = useLocation();
-    const initialState = (location.state && location.state.position) || doors.rightDoor; // 만약 state가 없다면 기본값을 사용합니다.    
+    const initState = (location.state && location.state.position) || doors.rightDoor; // 만약 state가 없다면 기본값을 사용합니다.    
+    const initDir = (location.state && location.state.direction) || DOWN;
 
-    const [chDirection, setChDirection] = useState(UP);
-    const [position, setPosition] = useState(initialState);
+    const [chDirection, setChDirection] = useState(initDir);
+    const [position, setPosition] = useState(initState);
     const [isDialogVisible, setDialogVisible] = useState(false);
     const [currEvent, setCurrEvent] = useState(events[0]);
     const [isNearEvent, setIsNearEvent] = useState(false);
@@ -187,7 +188,6 @@ function MapLeftPage() {
         function triggerEvent(characterX, characterY, characterDirection) {
             const eventToTrigger = IsEventFromCurrentPosition(characterX, characterY, characterDirection);
             if (eventToTrigger) {
-                // console.log(eventToTrigger.text);
                 showDialog(eventToTrigger);                
             }
         }
@@ -231,7 +231,7 @@ function MapLeftPage() {
         console.log(newPosition);
         if (door !== undefined && door.direction === direction) {
             const positionTo = door.nextPosition;
-            navigate(door.link, { state: { position: positionTo } });
+            navigate(door.link, { state: { position: positionTo, direction:direction } });
             return;
         }
 
@@ -244,21 +244,6 @@ function MapLeftPage() {
         setChDirection(direction);
     }
 
-    // const tiles = Array.from({ length: rows * cols }).map((_, index) => {
-    //     const i = Math.floor(index / cols);
-    //     const j = index % cols;
-    //     let tileClass = map[i][j] === 0 ? "bg-black" : "bg-white";
-    //     if (isDoor(doors, i, j)) tileClass = "bg-red-500";
-    //     if(isDoor(events, i, j)) tileClass = "bg-yellow-500";
-
-    //     return (
-    //         <div
-    //             key={`${i}-${j}`}
-    //             className={`border border-gray-300 relative ${tileClass}`}
-    //         />
-    //     );
-    // });
-
     const styles = {
         ...PAGE_SIZE,
         gridTemplateColumns: `repeat(${cols}, ${UNIT_SIZE.width}px)`
@@ -267,15 +252,13 @@ function MapLeftPage() {
     return (
         <div className='relative'>
             <div className="grid " style={styles} bg-black>
-                {/* {tiles} */}
                 <img src={mapImage} style={{ position: "absolute", zIndex: 0, width: "100%", height: "100%" }} alt="map" />
                 <div style={{
                     position: 'absolute',
                     top: `${position.y * UNIT_SIZE.height}px`,
-                    left: `${position.x * UNIT_SIZE.width}px`
-                }}>
+                    left: `${position.x * UNIT_SIZE.width}px`}}>
                     <Character direction={chDirection} />
-                    {isNearEvent && <SpeechBubble style={{zIndex:999}}/>}
+                    {isNearEvent && <SpeechBubble/>}
                 </div>
                 <DialogBox
                     text={currEvent.text}
@@ -283,10 +266,7 @@ function MapLeftPage() {
                     onClose={() => setDialogVisible(false)}
                     imageUrl={currEvent.imageUrl}
                     chName={currEvent.chName}
-                />                
-                {/* <div className={`dialog ${isDialogVisible ? "visible" : ""}`}>
-                    {dialogText}
-                </div> */}
+                />
             </div>
         </div>
     );
