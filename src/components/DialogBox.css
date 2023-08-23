@@ -2,11 +2,11 @@
 
 .dialogBox {
     position: absolute;
-    bottom: 10%;
+    bottom: 9%;
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
-    height: calc(100% / 3);
+    height: 25%;
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
     padding: 1rem;
@@ -17,14 +17,26 @@
     padding: 10px;
 
 }
-
-.dialogBox button {
+.controlContainer {
+    display: flex;
+    align-items: center; /* 세로 방향으로 중앙 정렬 */
     position: absolute;
-    right: 10px;
+    right: 20px;
     top: 10px;
 }
 
-
+.dialogBox button {
+    margin-left: 10px;
+    background-color: rgba(255, 255, 255, 0.2); /* 배경색 (투명한 흰색) */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* 테두리 (투명한 흰색) */
+    border-radius: 5px; /* 둥근 모서리 */
+    padding: 0.2rem 0.5rem; /* 안쪽 여백 (위/아래 0.5rem, 좌/우 1rem) */
+    transition: background-color 0.2s; /* 배경색 변경에 대한 부드러운 전환 효과 */
+    cursor: pointer; /* 마우스 포인터를 손가락 모양으로 변경 */
+}
+.dialogBox button:hover {
+    background-color: rgba(255, 255, 255, 0.4); /* 버튼을 호버했을 때의 배경색 (투명한 흰색) */
+}
 .dialogContent {
     display: flex;
     height: 100%;
@@ -32,12 +44,15 @@
     overflow-y: auto; 
     margin-right: 100px;
 }
+.dialogTextContainer{
+    width: 75%;
+    padding-left: 10px;
+}
 
 .dialogImageContainer {
-    flex-shrink: 0;
     width: 20%; 
     /* height: 20%; */
-    padding: 5px;
+    padding: 5px;    
     /* padding-right: 10px; */
 }
 
@@ -47,7 +62,24 @@
     border-radius: 5px;
 }
 
-.dialogTextContainer {
-    flex-grow: 1; 
-    padding-left: 10px;
+.extraImageContainer {
+    position: absolute;
+    top: 5% ; /* 50%는 화면의 중앙. 170px은 이미지의 최대 높이 340px의 절반 */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 5px;
+    white-space: pre-line;
+    display: flex;
+    justify-content: center;  /* width middle */
+    align-items: center;      /* height center */
+    padding: 10px;
+}
+
+.extraImageContainer img {
+    max-width: 700px;      
+    max-height: 400px;    
+    /* object-fit: fill;    */
+    display: block;         
 }

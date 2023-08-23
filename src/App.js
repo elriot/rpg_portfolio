@@ -3,6 +3,7 @@ import MenuPage from './pages/MenuPage';
 import MapStartPage from './pages/MapStartPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MapLeftPage from './pages/MapLeftPage';
+import MapTopPage from './pages/MapTopPage';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route exact path="/" element={menu} />
           <Route path="/map1" element={<MapStartPage />} />
           <Route path="/map2" element={<MapLeftPage />} />
+          <Route path="/map3" element={<MapTopPage />} />
         </Routes>
       </Router>
 

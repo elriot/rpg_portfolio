@@ -157,8 +157,10 @@ function MapStartPage() {
 
     const styles = {
         ...PAGE_SIZE,
-        gridTemplateColumns: `repeat(${cols}, ${UNIT_SIZE.width}px)`
+        gridTemplateColumns: `repeat(${cols}, ${UNIT_SIZE.width}px)`,
+        gridTemplateRows: `repeat(${rows}, ${UNIT_SIZE.width}px)`
     };
+    
     const handleCloseDialog = () => {
         console.log("here");
         setDialogVisible(false);
