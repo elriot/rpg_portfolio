@@ -26,10 +26,21 @@ const doors = [
 
 const events = [
     {
-
+        name:"check",
+        checked:[],        
     },
+    {
+        name:"weather",
+        triggerDirections: [UP],
+        x: 6,
+        y: 0,
+        text: ["What's this door?", "What's this door?\nOh~ It's for the Portfolio room 🎈"],
+        // chImage: [profileImage],
+        door: "up", /* move map after text */
+        chName: "Soopin"
+    }
 ]
- 
+
 
 function IsEventFromCurrentPosition(characterX, characterY, characterDirection){
     const eventToTrigger = events.find(event => {

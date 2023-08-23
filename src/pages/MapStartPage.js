@@ -54,7 +54,7 @@ const events = [
         text: ["What's this door?", "What's this door?\nOh~ It's for the Portfolio room 🎈"],
         chImage: [profileImage],
         door: "up", /* move map after text */
-        chName: "Anderew"
+        chName: "Soopin"
     },
     {
         name: "exit",
@@ -82,6 +82,12 @@ const events = [
         text: ["Good Idea! Please enjoy this app more."],
         chImage: [profileImage],
         chName: "Soopin"
+    },
+    {
+        name: "portpolio",
+        text: ["YOU CAN NOT BACK TO THE MAIN. PLEASE VISIT UP ROOM THROUGHT THE DOOR."],
+        chImage: [profileImage],
+        chName: "Soopin"
     }
 ];
 
@@ -96,10 +102,16 @@ function MapStartPage() {
     const [isDialogVisible, setDialogVisible] = useState(false);
     const [currEvent, setCurrEvent] = useState(events[0]);
     const [isNearEvent, setIsNearEvent] = useState(false);
+    // const [visitedUpRoom, setVisitedUpRoom] = useState("false");
+
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        const handleBeforeUnload = () => {
+            localStorage.setItem("visitedUpRoom", "false");
+        };
+    
         function handleKeyPress(event) {
             if (isDialogVisible) return;
 
@@ -147,9 +159,10 @@ function MapStartPage() {
             triggerEvent(position.x, position.y, chDirection);
             return;
         }
-
+        window.addEventListener("beforeunload", handleBeforeUnload);
         window.addEventListener('keydown', handleKeyPress);
         return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
             window.removeEventListener('keydown', handleKeyPress);
         };
     }, [position, chDirection, isDialogVisible, isNearEvent]);
@@ -172,7 +185,7 @@ function MapStartPage() {
         const door = doors.find(d => d.x === position.x && d.y === position.y);
         if (door !== undefined && door.direction === direction && door.isEvent === false) {
             // isEvent속성이 있으면 event후에 map이동
-            const positionTo = door.nextPosition;
+            const positionTo = door.nextPosition;            
             navigate(door.link, { state: { position: positionTo, direction: direction } });
             return;
         }
@@ -194,8 +207,12 @@ function MapStartPage() {
 
     const handleCloseDialog = () => {
         setDialogVisible(false);
-        console.log("currEvent", currEvent);
+        // console.log("currEvent", currEvent);
+        // console.log(currEvent);
         if (currEvent.door) {
+            if(currEvent.door==="up")
+                localStorage.setItem("visitedUpRoom", "true");
+            
             const door = doors.find(d => d.name === currEvent.door);
             navigate(door.link, { state: { position: door.nextPosition, direction: chDirection } });
         }
@@ -204,7 +221,13 @@ function MapStartPage() {
         const nextEvent = currEvent.onOptionSelect(selectedOption);
         if (nextEvent) {
             if (nextEvent.link) {
-                navigate("/");
+                const visited = localStorage.getItem("visitedUpRoom");         
+                if(visited === "false"){
+                    setCurrEvent(getEventByName("portpolio"));
+                } else {
+                    localStorage.setItem("visitedUpRoom", "false");
+                    navigate("/");
+                }                
             } else {
                 setCurrEvent(nextEvent);
             }

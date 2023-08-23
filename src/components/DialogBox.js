@@ -4,10 +4,11 @@ import classNames from 'classnames';
 
 function getImageByIndex(images, index) {
     if (!images) return null;
-    if (images.length === 1)
-        return images[0];
-    else
-        return images[index];
+    return images.length === 1 ? images[0] : images[index];
+}
+function containsHTML(text) {
+    const reg = /<\/?[a-z][\s\S]*>/i; 
+    return reg.test(text);
 }
 function DialogBox({ text, options, isVisible, onClose, characterImage, extraImage, chName, onOptionSelected, ...rest }) {
     const [index, setIndex] = useState(0);
@@ -18,7 +19,7 @@ function DialogBox({ text, options, isVisible, onClose, characterImage, extraIma
 
     useEffect(() => {
         function handleKeyPress(event) {
-            console.log("Key pressed in Dialog:", event.key);
+            // console.log("Key pressed in Dialog:", event.key);
             if (["Enter", " "].indexOf(event.key) > -1) {
                 if(options && selectedOptionIndex !== null){
                     onOptionSelected(options[selectedOptionIndex]);   
@@ -27,13 +28,16 @@ function DialogBox({ text, options, isVisible, onClose, characterImage, extraIma
                     if (index < text.length - 1) {
                         setIndex(prevIndex => prevIndex + 1);
                     } else {
+                        setIndex(0);
+                        setSelectedOptionIndex(0);
                         onClose();
                     }
                 }
-            } else if (event.key === "ArrowUp") {
-                setSelectedOptionIndex(prev => (prev - 1 + options.length) % options.length);
-            } else if (event.key === "ArrowDown") {
-                setSelectedOptionIndex(prev => (prev + 1) % options.length);
+            } else if (options) {
+                if(event.key === "ArrowUp")
+                    setSelectedOptionIndex(prev => (prev - 1 + options.length) % options.length);
+                else if (event.key === "ArrowDown")
+                    setSelectedOptionIndex(prev => (prev + 1) % options.length);
             }
             event.stopPropagation();
         }
@@ -53,7 +57,7 @@ function DialogBox({ text, options, isVisible, onClose, characterImage, extraIma
     const currExtra = getImageByIndex(extraImage, index);
 
 
-    const textTag = currText.indexOf("</a>") > -1
+    const textTag = containsHTML(currText)
         ? <p dangerouslySetInnerHTML={{ __html: currText }} /> :
         <p>{currText}</p>;
 
@@ -84,10 +88,11 @@ function DialogBox({ text, options, isVisible, onClose, characterImage, extraIma
                                 {options.map((option, index) => (
                                     <li
                                         key={option}
-                                        style={{ fontWeight: index === selectedOptionIndex ? 'bold' : 'normal' }}
+                                        style={{ fontWeight: index === selectedOptionIndex ? 'bold' : 'normal' }}                                        
                                         onClick={() => setSelectedOptionIndex(index)}
                                     >
-                                        <span style={{ visibility: index === selectedOptionIndex ? 'visible' : 'hidden' }}>▶</span> {option}
+                                        <span style={{ visibility: index === selectedOptionIndex ? 'visible' : 'hidden' }}>▶</span> 
+                                        <span className={classNames("pl-2", index === selectedOptionIndex ? "underline  decoration-solid" : "")}>{option}</span>
                                     </li>
                                 ))}
                             </ul>
