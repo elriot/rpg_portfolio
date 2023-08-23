@@ -4,7 +4,7 @@
     background-image: url('../images/ch.png');
     background-repeat: no-repeat;
     animation: walkAnim 0.5s steps(3) infinite;
-    scale: 1.4;
+    scale: 1.3;
     position : absolute;
   }
   /*ch01: x: 0 ~ -144px, ch02: -144 ~ -288*, ch : -288, -432*/

@@ -21,7 +21,7 @@ const map = [
     [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
 ];
 const doors = [
-    { name: "downDoor", direction: DOWN, x: 11, y: 4, link: "/map0", nextPosition: { x: 6, y: 1 } },
+    { name: "downDoor", direction: DOWN, x: 6, y: 8, link: "/map1", nextPosition: { x: 6, y: 1 } },
 ];
 
 const events = [
@@ -44,7 +44,7 @@ function IsEventFromCurrentPosition(characterX, characterY, characterDirection){
     return eventToTrigger;
 }
 
-function MapTopPage() {
+function MapUpPage() {
     const location = useLocation();
     const initState = (location.state && location.state.position) || doors.rightDoor; // 만약 state가 없다면 기본값을 사용합니다.    
     const initDir = (location.state && location.state.direction) || UP;
@@ -128,7 +128,7 @@ function MapTopPage() {
                 newPosition.x += 1;
         }
         const door = doors.find(d => d.x === position.x && d.y === position.y);
-        console.log(newPosition);
+        console.log(newPosition, door);
         if (door !== undefined && door.direction === direction) {
             const positionTo = door.nextPosition;
             navigate(door.link, { state: { position: positionTo, direction:direction } });
@@ -176,4 +176,4 @@ function MapTopPage() {
 
 }
 
-export default MapTopPage;
+export default MapUpPage;
