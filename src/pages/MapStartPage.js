@@ -23,14 +23,11 @@ const map = [
 ];
 
 const doors = [
+    // { name: "main", direction: DOWN, x: 6, y: 9, link: "/", isEvent: true },
     { name: "left", direction: LEFT, x: 0, y: 4, link: "/map2", nextPosition: { x: cols - 1, y: 4 }, isEvent: false },
     { name: "up", direction: UP, x: 6, y: 1, link: "/map3", nextPosition: { x: 6, y: rows - 1 }, isEvent: true },
 ];
-// const doors = [
-//     { name:"enterDoor", direction:DOWN, x: 6, y: 8, link: "/map1", nextPosition: null},
-//     { name:"leftDoor", direction:LEFT, x: 0, y: 4, link: "/map2", nextPosition:{x: cols-1, y : 4} },    
-//     { name:"topDoor", direction:UP, x: 6, y: 0, link: "/map3", nextPosition:{x: rows-1, y : 4} },
-// ];
+
 function IsEventFromCurrentPosition(characterX, characterY, characterDirection) {
     const eventToTrigger = events.find(event => {
         const isAdjacent =
@@ -44,6 +41,10 @@ function IsEventFromCurrentPosition(characterX, characterY, characterDirection) 
     return eventToTrigger;
 }
 
+const getEventByName = (name) => {
+    return events.find(e => e.name === name);
+}
+
 const events = [
     {
         name: "picture",
@@ -53,17 +54,34 @@ const events = [
         text: ["What's this door?", "What's this door?\nOh~ It's for the Portfolio room 🎈"],
         chImage: [profileImage],
         door: "up", /* move map after text */
-        chName: "Soopin"
+        chName: "Anderew"
     },
     {
         name: "exit",
         triggerDirections: [DOWN],
         x: 6,
         y: 9,
-        text: ["you wanna go?"],
+        text: ["you wanna go to the main page?"],
+        options: ["Yes", "No"],
+        onOptionSelect: option=>{
+            if(option === "Yes"){
+                return getEventByName("main");
+            } else {
+                return getEventByName("return");
+            }
+        },
         chImage: [profileImage],
-        door: "up", /* move map after text */
-        chName: "Andrew"
+        chName: "Soopin"
+    }, 
+    {
+        name: "main",
+        link: "/"
+    },
+    {
+        name: "return",
+        text: ["Good Idea! Please enjoy this app more."],
+        chImage: [profileImage],
+        chName: "Soopin"
     }
 ];
 
@@ -152,7 +170,6 @@ function MapStartPage() {
                 newPosition.x += 1;
         }
         const door = doors.find(d => d.x === position.x && d.y === position.y);
-        console.log(newPosition, door);
         if (door !== undefined && door.direction === direction && door.isEvent === false) {
             // isEvent속성이 있으면 event후에 map이동
             const positionTo = door.nextPosition;
@@ -176,13 +193,23 @@ function MapStartPage() {
     };
 
     const handleCloseDialog = () => {
-        console.log("here");
         setDialogVisible(false);
+        console.log("currEvent", currEvent);
         if (currEvent.door) {
             const door = doors.find(d => d.name === currEvent.door);
             navigate(door.link, { state: { position: door.nextPosition, direction: chDirection } });
         }
     }
+    const handleOptionSelected = (selectedOption) => {
+        const nextEvent = currEvent.onOptionSelect(selectedOption);
+        if (nextEvent) {
+            if (nextEvent.link) {
+                navigate("/");
+            } else {
+                setCurrEvent(nextEvent);
+            }
+        }
+    };
     return (
         <div className={classNames(`relative`, /*`transition-slide ${transitionDirection ? `slide-out-${transitionDirection}` : ''}`*/)}>
             <div className="grid" style={styles}>
@@ -203,6 +230,9 @@ function MapStartPage() {
                     characterImage={currEvent.chImage}
                     chName={currEvent.chName}
                     extraImage={currEvent.extraImage}
+                    options={currEvent.options}
+                    onOptionSelected={handleOptionSelected}
+                    onOptionSelect={currEvent.onOptionSelect}
                 />
 
             </div>
