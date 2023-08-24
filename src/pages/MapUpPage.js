@@ -41,7 +41,7 @@ const map = [
     [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
 ];
 const doors = [
-    { name: "downDoor", direction: DOWN, x: 6, y: 8, link: "/map1", nextPosition: { x: 6, y: 1 }, isEvent : true },
+    { name: "downdoor", direction: DOWN, x: 6, y: 8, link: "/map1", nextPosition: { x: 6, y: 1 }, isEvent : true },
 ];
 
 const events = [
@@ -137,6 +137,10 @@ const events = [
         x: 6,
         y: 9,        
         chName: "Soopin",
+        nextEvent:"exit_failed",
+        text:["See Ya!"],
+        door:"downdoor",
+        hide:false
     },
     {
         name: "exit_failed",
@@ -146,21 +150,30 @@ const events = [
 ]
 
 
-function IsEventFromCurrentPosition(characterX, characterY, characterDirection) {
+function IsEventFromCurrentPosition (characterX, characterY, characterDirection) {
     const eventToTrigger = events.find(event => {
         const isAdjacent =
-            (event.x === characterX && event.y === characterDirection && event.triggerDirections === characterDirection)||
+            // (event.x === characterX && event.y === characterDirection && event.triggerDirections === characterDirection)
             (event.x === characterX + 1 && event.y === characterY && characterDirection === RIGHT) ||
             (event.x === characterX && event.y === characterY + 1 && characterDirection === DOWN) ||
             (event.x === characterX - 1 && event.y === characterY && characterDirection === LEFT) ||
             (event.x === characterX && event.y === characterY - 1 && characterDirection === UP);
-
-        return isAdjacent && event.triggerDirections.includes(characterDirection);
+        
+        return isAdjacent && event.triggerDirections.includes(characterDirection ) && !event.hide;
     });
     return eventToTrigger;
 }
 const getEventByName = (name) => {
     return events.find(e => e.name === name);
+}
+
+const updateEvent = (name, key, value) => {
+    const event = events.find(event => event.name === name);
+    if (event) {
+        event[key] = value;
+    } else {
+        console.warn(`Event with name ${name} not found.`);
+    }
 }
 function MapUpPage() {
     const location = useLocation();
@@ -214,7 +227,24 @@ function MapUpPage() {
 
         function triggerEvent(characterX, characterY, characterDirection) {
             const eventToTrigger = IsEventFromCurrentPosition(characterX, characterY, characterDirection);
+            console.log("evetTrigger1111111111",eventToTrigger);
+            updateEvent("exit", "hide", true);
+            console.log(events["exit"]);
             if (eventToTrigger) {
+                console.log("here", eventToTrigger);
+                if(eventToTrigger.name === "exit" && eventToTrigger.nextEvent){                                                        
+                    if(localStorage.getItem("portpolio") === "false"){
+                        const getFailed = getEventByName("exit_failed");
+                        setCurrEvent(getFailed);
+                        setDialogVisible(true);
+                        return;
+                    } else {
+                        const door = doors.find(d => d.name === eventToTrigger.door);                        
+                        const positionTo = door.nextPosition;     
+                        navigate(door.link, { state: { position: positionTo, direction: characterDirection } });
+                        return;
+                    }
+                }
                 showDialog(eventToTrigger);
             }
         }
@@ -229,6 +259,7 @@ function MapUpPage() {
                 setDialogVisible(false);
                 return;
             }
+            
             triggerEvent(position.x, position.y, chDirection);
             return;
         }
@@ -257,12 +288,12 @@ function MapUpPage() {
                 newPosition.x += 1;
         }
         const door = doors.find(d => d.x === position.x && d.y === position.y);
-        // console.log(newPosition, door, localStorage.getItem("portpolio"));
+        console.log(newPosition, door, localStorage.getItem("portpolio"));
         if (door !== undefined && door.direction === direction) {
             if(localStorage.getItem("portpolio") === "false"){
                 console.log("Here");
                 const getFailed = getEventByName("exit_failed");
-                console.log(getFailed);
+                // console.log(getFailed);
                 setCurrEvent(getFailed);
                 setDialogVisible(true);
                 return;
