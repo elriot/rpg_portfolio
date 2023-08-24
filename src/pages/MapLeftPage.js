@@ -8,9 +8,9 @@ import profileImage2 from '../images/picture/profile_photo2.png';
 
 import DialogBox from '../components/DialogBox';
 import SpeechBubble from '../components/SpeechBubble';
-import myPanda01 from "../images/portpolio/panda/myPanda_01.png";
-import myPanda02 from "../images/portpolio/panda/myPanda_02.png";
-import myPanda03 from "../images/portpolio/panda/myPanda_03.png";
+import myPanda01 from "../images/portfolio/panda/myPanda_01.png";
+import myPanda02 from "../images/portfolio/panda/myPanda_02.png";
+import myPanda03 from "../images/portfolio/panda/myPanda_03.png";
 
 const cols = PAGE_SIZE.width / UNIT_SIZE.width;
 const rows = PAGE_SIZE.height / UNIT_SIZE.height;
