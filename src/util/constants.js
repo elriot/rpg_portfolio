@@ -6,6 +6,7 @@ const LEFT = 'left';
 const RIGHT = 'right';
 const TOP = 'top';
 const BOTTOM = 'bottom';
+const ALL_DIRECTION = 'all';
 
 const MOVEMENT_MAP = {
     ArrowUp: UP,
@@ -13,4 +14,4 @@ const MOVEMENT_MAP = {
     ArrowLeft: LEFT,
     ArrowRight: RIGHT,
 };
-export {PAGE_SIZE, UNIT_SIZE, UP, DOWN, LEFT, RIGHT, TOP, BOTTOM, MOVEMENT_MAP};
+export {PAGE_SIZE, UNIT_SIZE, UP, DOWN, LEFT, RIGHT, TOP, BOTTOM, MOVEMENT_MAP, ALL_DIRECTION};

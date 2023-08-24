@@ -102,9 +102,6 @@ function MapStartPage() {
     const [isDialogVisible, setDialogVisible] = useState(false);
     const [currEvent, setCurrEvent] = useState(events[0]);
     const [isNearEvent, setIsNearEvent] = useState(false);
-    // const [visitedUpRoom, setVisitedUpRoom] = useState("false");
-
-
     const navigate = useNavigate();
 
     useEffect(() => {
