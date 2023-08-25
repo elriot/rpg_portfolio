@@ -27,7 +27,8 @@ function MapStartPage() {
     const navigate = useNavigate();
 
     useEffect(() => {    
-        function handleKeyPress(event) {
+        function handleKeyPress(event) {     
+            console.log(event)       
             if (isDialogVisible) return;
 
             switch (event.key) {
@@ -49,6 +50,7 @@ function MapStartPage() {
         }
 
         function handleMove(key) {
+            console.log("HandleMove", key)
             if (MOVEMENT_MAP[key]) {
                 moveCharacter(MOVEMENT_MAP[key]);
             }
