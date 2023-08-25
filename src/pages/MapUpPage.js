@@ -5,9 +5,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import mapImage from '../images/map/map2.png';
 import DialogBox from '../components/DialogBox';
 import SpeechBubble from '../components/SpeechBubble';
-import {IsEventFromCurrentPosition, getEventByName, updateEvent} from '../events/common';
+import {isEventFromCurrentPosition, getEventByName, updateEvent} from '../events/common';
 import {events, doors, NUMBER_OF_PORTFOLIO, getAllPortfolio} from '../events/portfolioEvents';
 import { arraysHaveSameElements } from '../util/utils';
+import { usePortfolioContext } from '../context/PortfolioContext';
 
 const cols = PAGE_SIZE.width / UNIT_SIZE.width;
 const rows = PAGE_SIZE.height / UNIT_SIZE.height;
@@ -33,12 +34,14 @@ function MapUpPage() {
     const [position, setPosition] = useState(initState);
     const [isDialogVisible, setDialogVisible] = useState(false);
     const [currEvent, setCurrEvent] = useState(null);
-    const [isNearEvent, setIsNearEvent] = useState(events[0]);
+    const [isNearEvent, setIsNearEvent] = useState(false);
     const [checkedPortfolio, setCheckedPortfolio] = useState(localStorage.getItem("portfolio")=== "true" ? getAllPortfolio() : []); //"weather", "panda.."
+    const { visitPortfolioRoom, setVisitPortfolioRoom } = usePortfolioContext();
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        setIsNearEvent(false);
         function handleKeyPress(event) {            
             if (isDialogVisible) {
                 if(event.key === 'Escape'){
@@ -65,15 +68,14 @@ function MapUpPage() {
             }
         }
 
-        function handleMove(key) {           
-            console.log(checkedPortfolio); 
+        function handleMove(key) {        
             if (MOVEMENT_MAP[key]) {
                 moveCharacter(MOVEMENT_MAP[key]);
             }
         }
 
         function triggerEvent(characterX, characterY, characterDirection) {
-            const eventToTrigger = IsEventFromCurrentPosition(events, characterX, characterY, characterDirection);            
+            const eventToTrigger = isEventFromCurrentPosition(events, characterX, characterY, characterDirection);            
             
             if (eventToTrigger) {                
                 const eventType = eventToTrigger.type;
@@ -84,24 +86,19 @@ function MapUpPage() {
                         const updatedArray = [...checkedPortfolio];
                         updatedArray.push(eventToTrigger.name);                   
                         setCheckedPortfolio(updatedArray)
-                        if(localStorage.getItem("portfolio") === "false" && arraysHaveSameElements(getAllPortfolio(), updatedArray)){
-                            // console.log(22222, events["exit"], checkedPortfolio.length);
-                            localStorage.setItem("portfolio", "true");
-                            // console.log("before event", events["exit"]);
-                            updateEvent(events, "exit", "hide", true);
-                            // console.log("after event", events["exit"]);
+
+                        if(!visitPortfolioRoom && arraysHaveSameElements(getAllPortfolio(), updatedArray)){
+                            setVisitPortfolioRoom(true);
                         }
                     }
                 }
-                if(eventType === "door" && eventToTrigger.nextEvent){         
-                    // console.log(222, localStorage.getItem("portfolio"))                                               
-                    if(localStorage.getItem("portfolio") === "false"){
+                if(eventType === "door" && eventToTrigger.nextEvent){                                                 
+                    if(!visitPortfolioRoom){
                         const getFailed = getEventByName(events, "exit_failed");
                         setCurrEvent(getFailed);
                         setDialogVisible(true);
                         return;
                     } else {
-                        // console.log("????"); return;
                         const door = doors.find(d => d.name === eventToTrigger.door);                        
                         const positionTo = door.nextPosition;     
                         navigate(door.link, { state: { position: positionTo, direction: characterDirection } });
@@ -130,7 +127,7 @@ function MapUpPage() {
         return () => {
             window.removeEventListener('keydown', handleKeyPress);
         };
-    }, [position, chDirection, isDialogVisible, isNearEvent,currEvent,checkedPortfolio]);
+    }, [position, chDirection, isDialogVisible, isNearEvent, currEvent, checkedPortfolio]);
 
     const moveCharacter = (direction) => {
         const newPosition = { ...position };
@@ -150,10 +147,8 @@ function MapUpPage() {
         const door = doors.find(d => d.x === position.x && d.y === position.y);
         // console.log(newPosition, door, localStorage.getItem("portfolio"));
         if (door !== undefined && door.direction === direction) {
-            if(localStorage.getItem("portfolio") === "false"){
-                console.log("Here");
-                const getFailed = getEventByName(events, "exit_failed");
-                // console.log(getFailed);                
+            if(!visitPortfolioRoom){
+                const getFailed = getEventByName(events, "exit_failed");          
                 setCurrEvent(getFailed);
                 setDialogVisible(true);
                 return;
@@ -163,13 +158,16 @@ function MapUpPage() {
                 return;
             }
         }
-
-        if (IsEventFromCurrentPosition(events, newPosition.x, newPosition.y, direction)) {
-            console.log("here")
-            setIsNearEvent(true);
-        } else {
-            setIsNearEvent(false);
-        }
+        const nearEvent = isEventFromCurrentPosition(events, newPosition.x, newPosition.y, direction);        
+        let isNear = false;
+        if (nearEvent) {
+            if(nearEvent.type === "portfolio"){
+                isNear = true;
+            }else if(nearEvent.type === "door" && localStorage.getItem("portfolio", "false")){
+                isNear = true;
+            }
+        } 
+        setIsNearEvent(isNear);
         setPosition(newPosition);
         setChDirection(direction);
     }

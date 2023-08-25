@@ -6,7 +6,9 @@ import classNames from 'classnames';
 import mapImage from '../images/map/map0.png';
 import DialogBox from '../components/DialogBox';
 import SpeechBubble from '../components/SpeechBubble';
-import profileImage from '../images/picture/profile_photo.png';
+import { getEventByName, isEventFromCurrentPosition, updateEvent } from '../events/common';
+import { events,doors } from '../events/startRoomEvents';
+import { usePortfolioContext } from '../context/PortfolioContext';
 
 const cols = PAGE_SIZE.width / UNIT_SIZE.width;
 const rows = PAGE_SIZE.height / UNIT_SIZE.height;
@@ -22,77 +24,7 @@ const map = [
     [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
 ];
 
-const doors = [
-    // { name: "main", direction: DOWN, x: 6, y: 9, link: "/", isEvent: true },
-    { name: "left", direction: LEFT, x: 0, y: 4, link: "/map2", nextPosition: { x: cols - 1, y: 4 }, isEvent: false },
-    { name: "up", direction: UP, x: 6, y: 1, link: "/map3", nextPosition: { x: 6, y: rows - 1 }, isEvent: true },
-];
 
-function IsEventFromCurrentPosition(characterX, characterY, characterDirection) {
-    const eventToTrigger = events.find(event => {
-        const isAdjacent =
-            (event.x === characterX + 1 && event.y === characterY && characterDirection === RIGHT) ||
-            (event.x === characterX && event.y === characterY + 1 && characterDirection === DOWN) ||
-            (event.x === characterX - 1 && event.y === characterY && characterDirection === LEFT) ||
-            (event.x === characterX && event.y === characterY - 1 && characterDirection === UP);
-
-        return isAdjacent && event.triggerDirections.includes(characterDirection);
-    });
-    return eventToTrigger;
-}
-
-const getEventByName = (name) => {
-    return events.find(e => e.name === name);
-}
-
-const events = [
-    {
-        name: "doorToPortfolio",
-        triggerDirections: [UP],
-        type: "door",
-        x: 6,
-        y: 0,
-        text: ["What's this door?", "What's this door?\nOh~ It's for the Portfolio room 🎈"],
-        chImage: [profileImage],
-        door: "up", /* move map after text */
-        chName: "Soopin",
-        hide:false,
-    },
-    {
-        name: "exit",
-        triggerDirections: [DOWN],
-        x: 6,
-        y: 9,
-        type:"door",
-        text: ["you wanna go to the main page?"],
-        options: ["Yes", "No"],
-        onOptionSelect: option=>{
-            if(option === "Yes"){
-                return getEventByName("main");
-            } else {
-                return getEventByName("return");
-            }
-        },
-        chImage: [profileImage],
-        chName: "Soopin"
-    }, 
-    {
-        name: "main",
-        link: "/"
-    },
-    {
-        name: "return",
-        text: ["Good Idea! Please enjoy this app more."],
-        chImage: [profileImage],
-        chName: "Soopin"
-    },
-    {
-        name: "portpolio",
-        text: ["YOU CAN NOT BACK TO THE MAIN. PLEASE VISIT UP ROOM THROUGHT THE DOOR."],
-        chImage: [profileImage],
-        chName: "Soopin"
-    }
-];
 
 
 function MapStartPage() {
@@ -105,6 +37,7 @@ function MapStartPage() {
     const [isDialogVisible, setDialogVisible] = useState(false);
     const [currEvent, setCurrEvent] = useState(events[0]);
     const [isNearEvent, setIsNearEvent] = useState(false);
+    const { visitPortfolioRoom, setVisitPortfolioRoom } = usePortfolioContext();
     const navigate = useNavigate();
 
     useEffect(() => {    
@@ -136,9 +69,25 @@ function MapStartPage() {
         }
 
         function triggerEvent(characterX, characterY, characterDirection) {
-            const eventToTrigger = IsEventFromCurrentPosition(characterX, characterY, characterDirection);
+            // console.log("Dfdf")
+            // 처음 이벤트가 실행될 때. hide가 false이면 아래 함수에서 undefined반환함
+            const eventToTrigger = isEventFromCurrentPosition(events, characterX, characterY, characterDirection);
             if (eventToTrigger) {
-                showDialog(eventToTrigger);
+                // console.log(eventToTrigger);
+                // console.log(eventToTrigger.name);
+                if(eventToTrigger.name === "doorToPortfolio"){                                        
+                    if(!visitPortfolioRoom){
+                        showDialog(eventToTrigger);
+                    } else {
+                        const door = doors.find(d => d.name === eventToTrigger.door);                        
+                        const positionTo = door.nextPosition;     
+                        navigate(door.link, { state: { position: positionTo, direction: characterDirection } });
+                        return;
+                    }
+                } else {
+                    if(eventToTrigger.text)
+                        showDialog(eventToTrigger);
+                } 
             }
         }
 
@@ -178,14 +127,16 @@ function MapStartPage() {
         }
         const door = doors.find(d => d.x === position.x && d.y === position.y);
         if (door !== undefined && door.direction === direction && door.isEvent === false) {
-            // isEvent속성이 있으면 event후에 map이동
             const positionTo = door.nextPosition;            
             navigate(door.link, { state: { position: positionTo, direction: direction } });
             return;
         }
-
-        if (IsEventFromCurrentPosition(newPosition.x, newPosition.y, direction)) {
-            setIsNearEvent(true);
+        // console.log("dfdf");        
+        const nearEvent = isEventFromCurrentPosition(events, newPosition.x, newPosition.y, direction);
+        // console.log(nearEvent);
+        if (nearEvent) {
+            // if(!nearEvent.hide)
+                setIsNearEvent(true);
         } else {
             setIsNearEvent(false);
         }
@@ -201,25 +152,20 @@ function MapStartPage() {
 
     const handleCloseDialog = () => {
         setDialogVisible(false);
-        // console.log("currEvent", currEvent);
-        // console.log(currEvent);
-        if (currEvent.door) {
-            // if(currEvent.door==="up")
-            //     localStorage.setItem("portfolio", "true");
-            
+        
+        if (currEvent.door) {            
             const door = doors.find(d => d.name === currEvent.door);
             navigate(door.link, { state: { position: door.nextPosition, direction: chDirection } });
         }
     }
     const handleOptionSelected = (selectedOption) => {
-        const nextEvent = currEvent.onOptionSelect(selectedOption);
+        const nextEventName = currEvent.onOptionSelect(selectedOption);
+        const nextEvent = getEventByName(events, nextEventName);
         if (nextEvent) {
-            if (nextEvent.link) {
-                const visited = localStorage.getItem("portfolio");         
-                if(visited === "false"){
-                    setCurrEvent(getEventByName("portpolio"));
-                } else {
-                    // localStorage.setItem("portfolio", "false");
+            if (nextEvent.link ) {                         
+                if(!visitPortfolioRoom){
+                    setCurrEvent(getEventByName(events, "portpolio"));
+                } else { 
                     navigate("/");
                 }                
             } else {

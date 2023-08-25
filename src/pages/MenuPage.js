@@ -14,7 +14,7 @@ function MenuPage ({className, size, onClick}) {
     
         window.addEventListener("beforeunload", handleBeforeUnload);
         return () => {
-            window.removeEventListener("beforeunload", handleBeforeUnload);
+            // window.removeEventListener("beforeunload", handleBeforeUnload);
         };
     }, []);
     

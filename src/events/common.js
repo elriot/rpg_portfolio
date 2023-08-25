@@ -1,6 +1,6 @@
 import { UP, DOWN,RIGHT,LEFT } from "../util/constants"
 
-export const IsEventFromCurrentPosition =(events, characterX, characterY, characterDirection)=> {
+export const isEventFromCurrentPosition =(events, characterX, characterY, characterDirection)=> {
     const eventToTrigger = events.find(event => {
         const isAdjacent =
             // (event.x === characterX && event.y === characterDirection && event.triggerDirections === characterDirection)
@@ -11,6 +11,7 @@ export const IsEventFromCurrentPosition =(events, characterX, characterY, charac
         // console.log("hide", event.hide)
         return isAdjacent && event.triggerDirections.includes(characterDirection ) && !event.hide;
     });
+    // console.log("treiger", eventToTrigger)
     return eventToTrigger;
 }
 export const getEventByName = (events, name) => {

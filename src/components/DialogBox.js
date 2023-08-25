@@ -23,9 +23,9 @@ function DialogBox({ text, options, isVisible, onClose, characterImage, extraIma
     }, [isVisible, selectedOptionIndex]);
 
     useEffect(() => {
-        function handleKeyPress(event) {
-            if (["Enter", " "].indexOf(event.key) > -1) {
-                if(options && selectedOptionIndex !== null){
+        function handleKeyPress(event) {            
+            if (["Enter", " "].indexOf(event.key) > -1) {                
+                if(options && selectedOptionIndex !== null){             
                     onOptionSelected(options[selectedOptionIndex]);   
                     return;                 
                 } else {
