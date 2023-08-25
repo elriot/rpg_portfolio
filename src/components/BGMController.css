@@ -1,0 +1,9 @@
+.audioPlayer {
+  
+  /* float: right; */
+  display: flex;
+  float: right;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin: 10px;
+}

@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import "./ControllerButtons.css";
 import KeyButton from "./KeyButton";
 
@@ -15,6 +16,11 @@ const handleOnKeyPress = (event) => {
 }
 
 function ControllerButtons() {
+    const location = useLocation();
+    if (location.pathname === '/') {
+        return null;
+    }
+    
     return (
         <div>
             <div className="keyboard-container">
