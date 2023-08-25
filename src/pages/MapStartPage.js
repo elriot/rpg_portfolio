@@ -7,37 +7,23 @@ import mapImage from '../images/map/map0.png';
 import DialogBox from '../components/DialogBox';
 import SpeechBubble from '../components/SpeechBubble';
 import { getEventByName, isEventFromCurrentPosition, updateEvent } from '../events/common';
-import { events,doors } from '../events/startRoomEvents';
+import { events,doors,map } from '../events/startRoomEvents';
 import { usePortfolioContext } from '../context/PortfolioContext';
 
 const cols = PAGE_SIZE.width / UNIT_SIZE.width;
 const rows = PAGE_SIZE.height / UNIT_SIZE.height;
-const map = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-];
-
-
-
 
 function MapStartPage() {
 
     const location = useLocation();
-    const initState = (location.state && location.state.position) || doors["enterDoor"];
+    const initState = (location.state && location.state.position) || {x:doors[0].x,y:doors[0].y};;
     const initDir = (location.state && location.state.direction) || UP;
     const [position, setPosition] = useState(initState);
     const [chDirection, setChDirection] = useState(initDir);
     const [isDialogVisible, setDialogVisible] = useState(false);
     const [currEvent, setCurrEvent] = useState(events[0]);
     const [isNearEvent, setIsNearEvent] = useState(false);
-    const { visitPortfolioRoom, setVisitPortfolioRoom } = usePortfolioContext();
+    const { visitPortfolioRoom } = usePortfolioContext();
     const navigate = useNavigate();
 
     useEffect(() => {    

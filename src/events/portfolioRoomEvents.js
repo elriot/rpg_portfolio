@@ -1,53 +1,48 @@
 import { UP, DOWN,RIGHT,LEFT } from "../util/constants"
 import { getDialogString } from "../util/strings"
-import myPanda01 from "../images/portpolio/panda/myPanda_01.png";
-import myPanda02 from "../images/portpolio/panda/myPanda_02.png";
-import myPanda03 from "../images/portpolio/panda/myPanda_03.png";
-import myPanda_categoery from "../images/portpolio/panda/myPanda_categoery.png";
-import myPanda_items from "../images/portpolio/panda/myPanda_items.png";
-import myPanda_function_01 from "../images/portpolio/panda/myPanda_function_01.png";
-import myPanda_function_02 from "../images/portpolio/panda/myPanda_function_02.png";
-import myWeather01 from "../images/portpolio/weather/weather01.png";
-import myWeather02 from "../images/portpolio/weather/weather02.png";
-import myWeather03 from "../images/portpolio/weather/weather03.png";
-import myWeather04 from "../images/portpolio/weather/weather04.png";
-import myWeather_option from "../images/portpolio/weather/weather_option.png";
-import myCondoComponents from "../images/portpolio/condo/condo_components.png";
-import myCondoSignup from "../images/portpolio/condo/condo_signup.png";
-import myCondoSignupValid from "../images/portpolio/condo/condo_signup_validation.png";
-import myCondoUserList from "../images/portpolio/condo/condo_userlist.png";
-import myCondoSearchBar from "../images/portpolio/condo/condo_search.png";
-import myCondoMain from "../images/portpolio/condo/condo_main.png";
+import myPanda01 from "../images/portfolio/panda/myPanda_01.png";
+import myPanda02 from "../images/portfolio/panda/myPanda_02.png";
+import myPanda03 from "../images/portfolio/panda/myPanda_03.png";
+import myPanda_categoery from "../images/portfolio/panda/myPanda_categoery.png";
+import myPanda_items from "../images/portfolio/panda/myPanda_items.png";
+import myPanda_function_01 from "../images/portfolio/panda/myPanda_function_01.png";
+import myPanda_function_02 from "../images/portfolio/panda/myPanda_function_02.png";
+import myWeather01 from "../images/portfolio/weather/weather01.png";
+import myWeather02 from "../images/portfolio/weather/weather02.png";
+import myWeather03 from "../images/portfolio/weather/weather03.png";
+import myWeather04 from "../images/portfolio/weather/weather04.png";
+import myWeather_option from "../images/portfolio/weather/weather_option.png";
+import myCondoComponents from "../images/portfolio/condo/condo_components.png";
+import myCondoSignup from "../images/portfolio/condo/condo_signup.png";
+import myCondoSignupValid from "../images/portfolio/condo/condo_signup_validation.png";
+import myCondoUserList from "../images/portfolio/condo/condo_userlist.png";
+import myCondoSearchBar from "../images/portfolio/condo/condo_search.png";
+import myCondoMain from "../images/portfolio/condo/condo_main.png";
 
-export const IsEventFromCurrentPosition =(characterX, characterY, characterDirection)=> {
-    const eventToTrigger = eventForPortpolio.find(event => {
-        const isAdjacent =
-            // (event.x === characterX && event.y === characterDirection && event.triggerDirections === characterDirection)
-            (event.x === characterX + 1 && event.y === characterY && characterDirection === RIGHT) ||
-            (event.x === characterX && event.y === characterY + 1 && characterDirection === DOWN) ||
-            (event.x === characterX - 1 && event.y === characterY && characterDirection === LEFT) ||
-            (event.x === characterX && event.y === characterY - 1 && characterDirection === UP);
-        
-        return isAdjacent && event.triggerDirections.includes(characterDirection ) && !event.hide;
-    });
-    return eventToTrigger;
+const NUMBER_OF_PORTFOLIO = 4;
+const getAllPortfolio = () =>{
+    return ["condo","weather", "panda","rpg_portfolio"];
 }
-export const getEventByName = (name) => {
-    return eventForPortpolio.find(e => e.name === name);
-}
+const map = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+];
 
-export const updateEvent = (name, key, value) => {
-    const event = eventForPortpolio.find(event => event.name === name);
-    if (event) {
-        event[key] = value;
-    } else {
-        console.warn(`Event with name ${name} not found.`);
-    }
-}
+const doors = [
+    { name: "downdoor", direction: DOWN, x: 6, y: 8, link: "/map1", nextPosition: { x: 6, y: 1 }, isEvent : true },
+];
 
-export const eventForPortpolio = [
+const events = [
     {
         name: "condo",
+        type: "portfolio",
         triggerDirections: [UP],
         x: 3,
         y: 0,
@@ -73,6 +68,7 @@ export const eventForPortpolio = [
     {
         name: "weather",
         triggerDirections: [UP],
+        type: "portfolio",
         x: 5,
         y: 0,
         text: [getDialogString([
@@ -92,6 +88,7 @@ export const eventForPortpolio = [
     },
     {
         name: "panda",
+        type: "portfolio",
         triggerDirections: [UP],
         x: 7,
         y: 0,
@@ -133,19 +130,39 @@ export const eventForPortpolio = [
         chName: "Soopin"
     },
     {
+        name: "rpg_portfolio",
+        triggerDirections: [UP],
+        type: "portfolio",
+        x: 9,
+        y: 0,
+        text: [getDialogString([
+                "This is rpg portfolio App.😊"                
+                ,"- live webpage : <a href='https://elriot.github.io/weather' target='_blank'>https://elriot.github.io/weather</a>🌞"
+                ,"- github : <a href='https://github.com/elriot/panda' target='_blank'>https://github.com/elriot/panda</a>"
+            ])   
+        ],
+        extraImage:[null],
+        door: "up", /* move map after text */
+        chName: "Soopin"
+    },
+    {
         name: "exit",
+        type: "door",
         triggerDirections: [DOWN],      
         x: 6,
         y: 9,        
         chName: "Soopin",
         nextEvent:"exit_failed",
         text:["See Ya!"],
-        door:"downdoor",
-        hide:false
+        door:"downdoor", // connected door
+        hide:false // if hide is true, event doesnt triggered
     },
     {
         name: "exit_failed",
+        type: "nextEvent", // connected event ("exit"->"exit_failed")
         text:["You can't leave this room until check all my portfolios !"],
         chName: "Soopin"
     }
 ]
+
+export {doors, events, NUMBER_OF_PORTFOLIO, getAllPortfolio, map};

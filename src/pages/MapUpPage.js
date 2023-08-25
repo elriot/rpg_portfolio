@@ -6,28 +6,17 @@ import mapImage from '../images/map/map2.png';
 import DialogBox from '../components/DialogBox';
 import SpeechBubble from '../components/SpeechBubble';
 import {isEventFromCurrentPosition, getEventByName, updateEvent} from '../events/common';
-import {events, doors, NUMBER_OF_PORTFOLIO, getAllPortfolio} from '../events/portfolioEvents';
+import {events, doors, getAllPortfolio, map} from '../events/portfolioRoomEvents';
 import { arraysHaveSameElements } from '../util/utils';
 import { usePortfolioContext } from '../context/PortfolioContext';
 
 const cols = PAGE_SIZE.width / UNIT_SIZE.width;
 const rows = PAGE_SIZE.height / UNIT_SIZE.height;
-const map = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-];
 
 function MapUpPage() {
     // console.log(events);
     const location = useLocation();
-    const initState = (location.state && location.state.position) || doors.rightDoor; // 만약 state가 없다면 기본값을 사용합니다.    
+    const initState = (location.state && location.state.position) || {x:doors[0].x,y:doors[0].y}; // 만약 state가 없다면 기본값을 사용합니다.    
     const initDir = (location.state && location.state.direction) || UP;
 
     const [chDirection, setChDirection] = useState(initDir);

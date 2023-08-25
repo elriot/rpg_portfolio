@@ -3,9 +3,20 @@ import profileImage from '../images/picture/profile_photo.png';
 const cols = PAGE_SIZE.width / UNIT_SIZE.width;
 const rows = PAGE_SIZE.height / UNIT_SIZE.height;
 
+const map = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+];
 
 const doors = [
-    // { name: "main", direction: DOWN, x: 6, y: 9, link: "/", isEvent: true },
+    { name: "main", direction: DOWN, x: 6, y: 8, link: "/", isEvent: true },
     { name: "left", direction: LEFT, x: 0, y: 4, link: "/map2", nextPosition: { x: cols - 1, y: 4 }, isEvent: false },
     { name: "up", direction: UP, x: 6, y: 1, link: "/map3", nextPosition: { x: 6, y: rows - 1 }, isEvent: true },
 ];
@@ -57,4 +68,4 @@ const events = [
         chName: "Soopin"
     }
 ];
-export {doors, events};
+export {doors, events, map};
