@@ -8,7 +8,7 @@ export const IsEventFromCurrentPosition =(events, characterX, characterY, charac
             (event.x === characterX && event.y === characterY + 1 && characterDirection === DOWN) ||
             (event.x === characterX - 1 && event.y === characterY && characterDirection === LEFT) ||
             (event.x === characterX && event.y === characterY - 1 && characterDirection === UP);
-        console.log("hide", event.hide)
+        // console.log("hide", event.hide)
         return isAdjacent && event.triggerDirections.includes(characterDirection ) && !event.hide;
     });
     return eventToTrigger;

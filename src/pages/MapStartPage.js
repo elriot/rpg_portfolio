@@ -47,20 +47,23 @@ const getEventByName = (name) => {
 
 const events = [
     {
-        name: "picture",
+        name: "doorToPortfolio",
         triggerDirections: [UP],
+        type: "door",
         x: 6,
         y: 0,
         text: ["What's this door?", "What's this door?\nOh~ It's for the Portfolio room 🎈"],
         chImage: [profileImage],
         door: "up", /* move map after text */
-        chName: "Soopin"
+        chName: "Soopin",
+        hide:false,
     },
     {
         name: "exit",
         triggerDirections: [DOWN],
         x: 6,
         y: 9,
+        type:"door",
         text: ["you wanna go to the main page?"],
         options: ["Yes", "No"],
         onOptionSelect: option=>{
@@ -104,11 +107,7 @@ function MapStartPage() {
     const [isNearEvent, setIsNearEvent] = useState(false);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const handleBeforeUnload = () => {
-            localStorage.setItem("visitedUpRoom", "false");
-        };
-    
+    useEffect(() => {    
         function handleKeyPress(event) {
             if (isDialogVisible) return;
 
@@ -156,10 +155,8 @@ function MapStartPage() {
             triggerEvent(position.x, position.y, chDirection);
             return;
         }
-        window.addEventListener("beforeunload", handleBeforeUnload);
         window.addEventListener('keydown', handleKeyPress);
         return () => {
-            window.removeEventListener("beforeunload", handleBeforeUnload);
             window.removeEventListener('keydown', handleKeyPress);
         };
     }, [position, chDirection, isDialogVisible, isNearEvent]);
@@ -207,8 +204,8 @@ function MapStartPage() {
         // console.log("currEvent", currEvent);
         // console.log(currEvent);
         if (currEvent.door) {
-            if(currEvent.door==="up")
-                localStorage.setItem("visitedUpRoom", "true");
+            // if(currEvent.door==="up")
+            //     localStorage.setItem("portfolio", "true");
             
             const door = doors.find(d => d.name === currEvent.door);
             navigate(door.link, { state: { position: door.nextPosition, direction: chDirection } });
@@ -218,11 +215,11 @@ function MapStartPage() {
         const nextEvent = currEvent.onOptionSelect(selectedOption);
         if (nextEvent) {
             if (nextEvent.link) {
-                const visited = localStorage.getItem("visitedUpRoom");         
+                const visited = localStorage.getItem("portfolio");         
                 if(visited === "false"){
                     setCurrEvent(getEventByName("portpolio"));
                 } else {
-                    localStorage.setItem("visitedUpRoom", "false");
+                    // localStorage.setItem("portfolio", "false");
                     navigate("/");
                 }                
             } else {

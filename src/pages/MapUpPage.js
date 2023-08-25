@@ -39,10 +39,6 @@ function MapUpPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const handleBeforeUnload = () => {
-            localStorage.setItem("portfolio", "false");
-        };
-
         function handleKeyPress(event) {            
             if (isDialogVisible) {
                 if(event.key === 'Escape'){
@@ -130,11 +126,8 @@ function MapUpPage() {
             triggerEvent(position.x, position.y, chDirection);
             return;
         }
-
-        window.addEventListener("beforeunload", handleBeforeUnload);
         window.addEventListener('keydown', handleKeyPress);
         return () => {
-            window.removeEventListener("beforeunload", handleBeforeUnload);
             window.removeEventListener('keydown', handleKeyPress);
         };
     }, [position, chDirection, isDialogVisible, isNearEvent,currEvent,checkedPortfolio]);
