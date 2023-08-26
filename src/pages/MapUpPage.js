@@ -30,7 +30,6 @@ function MapUpPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        setIsNearEvent(false);
         function handleKeyPress(event) {            
             if (isDialogVisible) {
                 if(event.key === 'Escape'){
@@ -147,16 +146,15 @@ function MapUpPage() {
                 return;
             }
         }
-        const nearEvent = isEventFromCurrentPosition(events, newPosition.x, newPosition.y, direction);        
-        let isNear = false;
-        if (nearEvent) {
-            if(nearEvent.type === "portfolio"){
-                isNear = true;
-            }else if(nearEvent.type === "door" && localStorage.getItem("portfolio", "false")){
-                isNear = true;
+        const nearEvent = isEventFromCurrentPosition(events, newPosition.x, newPosition.y, direction);                
+        let showSpeechBubble = nearEvent ? true: false;
+        if(nearEvent){            
+            showSpeechBubble = true;
+            if(nearEvent.name === "exit" && visitPortfolioRoom){
+                showSpeechBubble = false;
             }
         } 
-        setIsNearEvent(isNear);
+        setIsNearEvent(showSpeechBubble);
         setPosition(newPosition);
         setChDirection(direction);
     }
@@ -177,6 +175,7 @@ function MapUpPage() {
                     left: `${position.x * UNIT_SIZE.width}px`
                 }}>
                     <Character direction={chDirection} />
+                    {/* {console.log("near", isNearEvent)} */}
                     {isNearEvent && <SpeechBubble />}
                 </div>
                 {currEvent &&

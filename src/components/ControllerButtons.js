@@ -22,7 +22,6 @@ function ControllerButtons() {
     }
     
     return (
-        <div>
             <div className="keyboard-container">
                 <div className="keyboard-group">
                     <KeyButton className="arrow-key up" keyCode="ArrowUp" onKeyPress={handleOnKeyPress} keyName="▲" />                    
@@ -34,7 +33,6 @@ function ControllerButtons() {
                 </div>
                 <button className="enter-key" onClick={() => simulateKeyEvent("Enter")}>Enter</button>
             </div>
-        </div>
     );
 }
 

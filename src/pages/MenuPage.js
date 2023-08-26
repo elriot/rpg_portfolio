@@ -1,33 +1,46 @@
 import { useNavigate } from "react-router-dom";
 import MenuBox from "../components/MenuBox";
 import { PAGE_SIZE } from "../util/constants";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import ModalBox from "../components/ModalBox";
 
-const startDoor = {x:6, y:8};
-function MenuPage ({className, size, onClick}) {    
-    const styles = {...PAGE_SIZE, backgroundColor : "black"};
+function MenuPage({ className, size, onClick }) {
+    const styles = { ...PAGE_SIZE, backgroundColor: "#2f4f4f" };
+    const [howToPlayVisible, setHowToPlayVisible] = useState(false);
+
     const navigation = useNavigate();
     useEffect(() => {
         const handleBeforeUnload = () => {
             localStorage.setItem("portfolio", "false");
         };
-    
+
         window.addEventListener("beforeunload", handleBeforeUnload);
         return () => {
             // window.removeEventListener("beforeunload", handleBeforeUnload);
         };
     }, []);
-    
+
     const handleClickButton = (option) => {
         if (option === 'start') {
-            navigation("/map1", { state: {position : startDoor}});
+            navigation("/map1", { state: { position: { x: 6, y: 8 } } });
         } else {
-            // console.log("how to ply")
+            setHowToPlayVisible(!howToPlayVisible);
+            console.log("modal click");
         }
     }
-    return <div className={className} style={styles}>
-        <MenuBox onClick={handleClickButton}></MenuBox>
+    const handleCloseClick = () => {
+        setHowToPlayVisible(false);
+    }
+    return <div className="flex items-center justify-center relative" style={styles}>
+        {!howToPlayVisible &&
+            <MenuBox onClick={handleClickButton}></MenuBox>
+        }
+        {howToPlayVisible &&
+            <div style={{ width: "80%", height: "80%" }}>
+                <ModalBox onClick={handleCloseClick}/>
+            </div>
+        }
     </div>
-    
+
 }
 export default MenuPage;

@@ -10,7 +10,7 @@ import BGMController from './components/BGMController';
 
 
 function App() {
-  const centeredContainer = "flex items-center justify-center relative" // menu center middle  
+  const centeredContainer = "" // menu center middle  
   const handleNavigation = (path) => {
     if (path === '/map1') {
       // navigate('/map');
@@ -18,7 +18,6 @@ function App() {
     console.log("Navigating to:", path);
   }
   // const location = useLocation();
-  const menu = <MenuPage className={centeredContainer} onNavigate={handleNavigation}></MenuPage>;
   return (
     // <KeyboardHandlerProvider>        
       <PortfolioProvider>        
@@ -26,16 +25,15 @@ function App() {
         <BGMController/>
           <Router>
             <Routes>
-              <Route exact path="/" element={menu} />
+              <Route exact path="/" element={<MenuPage onNavigate={handleNavigation}/>} />
               <Route path="/map1" element={<MapStartPage />} />
               <Route path="/map2" element={<MapLeftPage />} />
               <Route path="/map3" element={<MapUpPage />} />              
             </Routes>
             <ControllerButtons />
           </Router>
-
           {/* <StartingRoomMapPage></StartingRoomMapPage>  */}
-          <h1 className="text-3xl font-bold text-blue-600 mt-4">Hello, Tailwind CSS!</h1>
+          <h1 className="text-3xl font-bold text-blue-600">Hello, Tailwind CSS!</h1>
           <p className="mt-2 text-red-700">This is an example of Tailwind CSS usage.</p>
 
         </div>

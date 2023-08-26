@@ -27,7 +27,12 @@ function MapLeftPage() {
 
     useEffect(() => {
         function handleKeyPress(event) {
-            if (isDialogVisible) return;
+            if (isDialogVisible) {
+                if(event.key === 'Escape'){
+                    setDialogVisible(false);
+                }                                        
+                return;
+            }
 
             switch (event.key) {
                 case 'ArrowUp':
@@ -42,6 +47,7 @@ function MapLeftPage() {
                 case ' ':
                     handleEnter();
                     break;
+                    
                 default:
                     break;
             }

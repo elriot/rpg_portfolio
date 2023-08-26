@@ -19,11 +19,11 @@ function DialogBox({ text, options, isVisible, onClose, characterImage, extraIma
     // const [imageLoaded, setImageL oaded] = useState(false);
 
     useEffect(() => {        
-        // setImageLoaded(false);
-    }, [isVisible, selectedOptionIndex]);
+        setIndex(0);
+    }, [isVisible]);
 
     useEffect(() => {
-        function handleKeyPress(event) {            
+        function handleKeyPress(event) {  
             if (["Enter", " "].indexOf(event.key) > -1) {                
                 if(options && selectedOptionIndex !== null){             
                     onOptionSelected(options[selectedOptionIndex]);   
@@ -32,7 +32,6 @@ function DialogBox({ text, options, isVisible, onClose, characterImage, extraIma
                     if (index < text.length - 1) {
                         setIndex(prevIndex => prevIndex + 1);
                     } else {
-                        setIndex(0);
                         setSelectedOptionIndex(0);
                         onClose();
                     }
