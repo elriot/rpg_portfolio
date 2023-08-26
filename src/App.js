@@ -30,11 +30,12 @@ function App() {
               <Route path="/map2" element={<MapLeftPage />} />
               <Route path="/map3" element={<MapUpPage />} />              
             </Routes>
+            <h1 className="text-3xl font-bold text-blue-600">Hello, Tailwind CSS!</h1>
+          <p className="mt-2 text-red-700">This is an example of Tailwind CSS usage.</p>
             <ControllerButtons />
           </Router>
           {/* <StartingRoomMapPage></StartingRoomMapPage>  */}
-          <h1 className="text-3xl font-bold text-blue-600">Hello, Tailwind CSS!</h1>
-          <p className="mt-2 text-red-700">This is an example of Tailwind CSS usage.</p>
+
 
         </div>
       </PortfolioProvider>

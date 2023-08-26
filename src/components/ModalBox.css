@@ -23,8 +23,8 @@
     align-items: center;
     justify-self: center
 }
-.category{
-    margin-top: 25px;
+.modal-category{
+    margin-top: 40px;
 }
 .title-container{
     margin-top: 10px;
@@ -70,15 +70,19 @@
     display: flex;
     flex-direction: row;
     gap:5px;
+    align-items: center;
+    justify-content: center;
 
 }
-.dialog-image {
+.modal-image {
     border-radius: 3px;
     border-width: 3px;
     border-style: solid;
     border-color: gray;    
-    margin-bottom: 4px;
-    margin-top:4px;
+    margin: 5px;
+}
+.character-image{
+    width: 40%;
 }
 .keyboard-image{
     width: 50%;
