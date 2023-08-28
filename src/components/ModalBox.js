@@ -5,7 +5,7 @@ import image03 from "../images/howtoplay/03.png";
 function ModalBox({ style, onClick }) {
     return (
         <div className="modal-container">
-            <button className="" onClick={() => { onClick() }}>close</button>
+            <button className="modal-close-button" onClick={() => { onClick() }}>close</button>
             <div className="modal-contents-container">
                 <div className="title-container">
                     <p className="title">HOW TO PLAY </p>

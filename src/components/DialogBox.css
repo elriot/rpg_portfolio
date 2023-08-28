@@ -35,7 +35,7 @@
     cursor: pointer; /* 마우스 포인터를 손가락 모양으로 변경 */
 }
 .dialogBox button:hover {
-    background-color: rgba(255, 255, 255, 0.4); /* 버튼을 호버했을 때의 배경색 (투명한 흰색) */
+    background-color: rgba(255, 255, 255, 0.4);
 }
 .dialogContent {
     display: flex;

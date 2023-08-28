@@ -32,9 +32,9 @@ function BGMController() {
 
     return (
         <div className='audioPlayer'>
-            <audio ref={audioRef} src={bgm} loop volume={volume} controls autoPlay></audio>
+            <audio ref={audioRef} src={bgm} loop volume={volume} autoPlay></audio>
 
-            {/* <div className="container">
+            <div className="container">
                 <button onClick={handlePlayPause}>
                     {isPlaying ? 'Pause' : 'Play'}
                 </button>
@@ -46,7 +46,7 @@ function BGMController() {
                     value={volume}
                     onChange={handleVolumeChange}
                 />
-            </div> */}
+            </div>
 
 
         </div>

@@ -53,12 +53,16 @@ const events = [
                 , "This project is the first website I made after learning React."
                 , "- github : <a href='https://github.com/elriot/condo' target='_blank'>https://github.com/elriot/condo</a>"
             ])
-            , getDialogString(["I made all the components used in the project and used json-server and axios for CRUD."])
+            , getDialogString(["I made all the components used in the project"
+            ,"and used json-server and axios for CRUD."])
             , getDialogString([
-                "This is Signup page."
-                , " Check email, password validation here, and if there is no problem, signup will be completed."                
+                "This is Sign Up page."
+                , "If you pass the email, password validation, sign up will be completed."                
             ])
-            , getDialogString(["This is UserList Page."])
+            , getDialogString(["This is User List Page."
+            ,"This is where select, update, and delete operations occur."
+            ,"you can select users, update userstates, delete users in this page."
+            ,"as I mentioned before, all of the elements are custom components."])
             , getDialogString(["please enjoy my weather app!"])
         ],
         extraImage:[myCondoMain, myCondoComponents, myCondoSignupValid, myCondoUserList, myCondoSearchBar],
