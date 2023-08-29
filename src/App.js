@@ -13,7 +13,8 @@ function setZoom() {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
     const widthZoom = (windowWidth / 960) > 1 ? 1: (windowWidth / 960);
-    const heightZoom = (windowWidth / 800) > 1 ? 1: (windowHeight / 800);
+    const heightZoom = (windowHeight / 800) > 1 ? 1: (windowHeight / 800);
+    // console.log(windowWidth, windowHeight, widthZoom, heightZoom)
     document.body.style.zoom = Math.min(widthZoom, heightZoom);    
 }
 
