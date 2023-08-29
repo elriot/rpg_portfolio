@@ -1,11 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import bgm from "../music/bgm.mp3";
 import "./BGMController.css"
-import {BsVolumeMuteFill, BsVolumeUpFill} from "react-icons/bs";
 
 function BGMController() {
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [volume, setVolume] = useState(0.2);
+    // const [isPlaying, setIsPlaying] = useState(false);
+    const [volume, setVolume] = useState(0.5);
     const audioRef = useRef(null);
 
     useEffect(() => {
