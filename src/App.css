@@ -4,15 +4,17 @@
   align-items: center;
   justify-content: center;  
   position: relative;
+
+  /* zoom: 80%; */
 }
 
 a {
   color: greenyellow;
   text-decoration: underline;  
 }
-
-
-
+body{
+  overflow: hidden;
+}
 
 
 /* top: -170px;

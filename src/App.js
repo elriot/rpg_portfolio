@@ -9,12 +9,24 @@ import ControllerButtons from "./components/ControllerButtons"
 import { useState } from 'react';
 import TopMenu from './components/TopMenu';
 
+function setZoom() {
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+    const widthZoom = (windowWidth / 960) > 1 ? 1: (windowWidth / 960);
+    const heightZoom = (windowWidth / 800) > 1 ? 1: (windowHeight / 800);
+    document.body.style.zoom = Math.min(widthZoom, heightZoom);    
+}
+
 function App() {
     const [keyControllerVisible, setKeyControllerVisible] = useState(true);
+    // const [zoom, setZoom] = useState(1);
 
     const handleToggleClick = () => {
         setKeyControllerVisible(!keyControllerVisible);
     }
+      
+    setZoom();
+    window.addEventListener('resize', setZoom);
     // const keyControllerClass = keyControllerVisible ? 'keyboard-controller-button visible' : 'keyboard-controller-button';
     return (
         <PortfolioProvider>

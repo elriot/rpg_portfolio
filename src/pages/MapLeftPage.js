@@ -102,7 +102,7 @@ function MapLeftPage() {
                 newPosition.x += 1;
         }
         const door = doors.find(d => d.x === position.x && d.y === position.y);
-        console.log(newPosition);
+        // console.log(newPosition);
         if (door !== undefined && door.direction === direction) {
             const positionTo = door.nextPosition;
             navigate(door.link, { state: { position: positionTo, direction:direction } });

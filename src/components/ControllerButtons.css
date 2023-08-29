@@ -1,9 +1,7 @@
 .keyboard-container {
     position: relative;
-    top:-10vh;
-    right:-20vw;
-    /* top: -170px;
-    right: -320px; */
+    top:-120px;
+    right:-320px;
     display: flex;
     flex-direction: row;
     /* align-items: center;*/
