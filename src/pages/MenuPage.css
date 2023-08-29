@@ -1,0 +1,39 @@
+.menu-page-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-direction: column;
+    /* background: radial-gradient(circle, rgb(147, 53, 144) 0%, rgb(0, 0, 0) 100%); */
+    height: 100vh;
+    width: 100%;
+    /* background-image: url('../images/picture/photo_bg_transparent.png'); */
+    background-image: linear-gradient(to bottom,
+            rgba(185, 233, 218, 0.3),
+            rgba(226, 236, 161, 0.3)), url("../images/picture/photo_bg_transparent.png");
+    background-repeat: no-repeat;
+    background-position: bottom right;
+            
+}
+
+.menu-page-title {
+    color: white;
+    position: absolute;
+    top: 150px;
+    font-size: 3rem;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    letter-spacing: 2px;
+    /* background-color: purple; */
+    border-radius: 15px;
+    padding: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.how-to-play-container {
+    width: 80%;
+    height: 80%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}

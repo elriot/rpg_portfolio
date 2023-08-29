@@ -31,7 +31,7 @@ function App() {
                 </Router>
             </div>
             {/* {/* <h1 className="App">Hello, Tailwind CSS!</h1> */}
-            <p className="App">hello2</p>
+            {/* <p className="App">hello2</p> */}
         </PortfolioProvider>
     );
 }

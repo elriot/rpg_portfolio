@@ -1,26 +1,22 @@
-.menu-container{
-    position: absolute;
+.menu-container{    
     background-color: white;
-    padding: 5px;
+    padding: 6px;
     border-radius: 3px;
-    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-    /* top: -50%;
-    left: -50%; */
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);        
 }
 .menu-option {
-    background-color: rgb(144, 175, 245);
+    background-color:rgb(142, 137, 195); 
     color:white;
-    font-weight: bold;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    font-weight: bold;    
+    padding: 6px;    
     border-radius: 3px;
     width:100%;
     transition: background-color 0.2s;
 }
 .menu-option-last {
-    margin-top: 5px;
+    margin-top: 7px;
 }
 .menu-option:hover{
-    background-color: rgb(215, 86, 108);
+    background-color: rgb(76, 29, 86);
     
 }
