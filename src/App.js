@@ -30,8 +30,8 @@ function App() {
                     {keyControllerVisible && <ControllerButtons />}
                 </Router>
             </div>
-            <h1 className="App">Hello, Tailwind CSS!</h1>
-            <p className="App">This is an example of Tailwind CSS usage.</p>
+            {/* <h1 className="App">Hello, Tailwind CSS!</h1>
+            <p className="App">This is an example of Tailwind CSS usage.</p> */}
         </PortfolioProvider>
     );
 }
