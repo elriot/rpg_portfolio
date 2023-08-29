@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/rpg_portfolio/static/css/main.e74bf080.css",
-    "main.js": "/rpg_portfolio/static/js/main.ff278bb9.js",
+    "main.js": "/rpg_portfolio/static/js/main.39962517.js",
     "static/js/787.66f1f54c.chunk.js": "/rpg_portfolio/static/js/787.66f1f54c.chunk.js",
     "static/media/bgm.mp3": "/rpg_portfolio/static/media/bgm.4ecc50ab2231fa73c891.mp3",
     "static/media/weather04.png": "/rpg_portfolio/static/media/weather04.e3e0919abf57cb87b9b9.png",
@@ -30,11 +30,11 @@
     "static/media/myPanda_function_01.png": "/rpg_portfolio/static/media/myPanda_function_01.a712d97e7638fccd6ab7.png",
     "index.html": "/rpg_portfolio/index.html",
     "main.e74bf080.css.map": "/rpg_portfolio/static/css/main.e74bf080.css.map",
-    "main.ff278bb9.js.map": "/rpg_portfolio/static/js/main.ff278bb9.js.map",
+    "main.39962517.js.map": "/rpg_portfolio/static/js/main.39962517.js.map",
     "787.66f1f54c.chunk.js.map": "/rpg_portfolio/static/js/787.66f1f54c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e74bf080.css",
-    "static/js/main.ff278bb9.js"
+    "static/js/main.39962517.js"
   ]
 }
