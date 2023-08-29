@@ -1,11 +1,13 @@
-# Welcome to My RPG Portfolio
+## Welcome to My RPG Portfolio
 
 
-## Overview
+
+### Overview
 
 - **Inspiration**: This portfolio is crafted with love and nostalgia, taking inspiration from the RPG games I used to play during my childhood.
 
 - **Platform Compatibility**: Please note that this portfolio is optimized for desktop browsers. Mobile optimization is currently not available.
+
 
 
 ### Features
@@ -19,12 +21,14 @@
 - **Additional Features**: Turn the BGM on or off at your convenience. A clickable keyboard button is also available, and its visibility can be toggled as you please.
 
 
-## Conclusion
+
+### Conclusion
 
 Please enjoy navigating through my unique portfolio. It's not just a display of my skills but also a fun, interactive experience that I hope you'll enjoy.
 
 
-## Links
+
+### Links
 
 - [GitHub Repository](https://github.com/elriot/rpg_portfolio)
 - [Live Webpage](https://elriot.github.io/rpg_portfolio)
