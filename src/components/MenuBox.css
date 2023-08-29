@@ -2,7 +2,8 @@
     background-color: white;
     padding: 6px;
     border-radius: 3px;
-    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);        
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    position: relative;        
 }
 .menu-option {
     background-color:rgb(142, 137, 195); 
@@ -12,6 +13,7 @@
     border-radius: 3px;
     width:100%;
     transition: background-color 0.2s;
+    position: relative;    
 }
 .menu-option-last {
     margin-top: 7px;

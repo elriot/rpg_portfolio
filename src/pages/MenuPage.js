@@ -26,7 +26,7 @@ function MenuPage({ className, size, onClick }) {
             navigation("/map1", { state: { position: { x: 6, y: 8 } } });
         } else {
             setHowToPlayVisible(!howToPlayVisible);
-            console.log("modal click");
+            // console.log("modal click");
         }
     }
     const handleCloseClick = () => {
@@ -34,14 +34,15 @@ function MenuPage({ className, size, onClick }) {
     }
     return (
         <div className="menu-page-container" style={styles}>
-            <p className="menu-page-title">Soopin Kim - portfolio</p>
+            {!howToPlayVisible && <p className="menu-page-title"  style={{ zIndex: 1 }} >Soopin Kim - Portfolio</p>}
             {!howToPlayVisible ? (
-                <MenuBox onClick={handleClickButton} />
+                <MenuBox onClick={handleClickButton} style={{ zIndex: 2 }} />
             ) : (
                 <div className="how-to-play-container">
                     <HowToPlayModalBox onClick={handleCloseClick} />
                 </div>
             )}
+
         </div>
     );
 
