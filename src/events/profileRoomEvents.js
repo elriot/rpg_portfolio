@@ -31,9 +31,8 @@ const events = [
         triggerDirections: [UP],
         x: 4,
         y: 0,
-        text: [getDialogString(["Hello!", "I'm Soopin Kim. I'm Software Developer."])
-            , "I have 3 years 8 month experience as Web and Software Development In South Korea."
-            , getDialogString(["you can check my profile in Linkedin.", "<a href='https://www.linkedin.com/in/soopin-kim-9099a426a/' target='_blank'>https://www.linkedin.com/in/soopin-kim-9099a426a/</a>"])],
+        text: [getDialogString(["Hello! My name is Soopin Kim, a software developer with over three years of professional experience in web and software development in South Korea."])
+            , getDialogString(["For more information, you to visit my LinkedIn profile: ", "<a href='https://www.linkedin.com/in/soopin-kim-9099a426a/' target='_blank'>https://www.linkedin.com/in/soopin-kim-9099a426a/</a>"])],
         chImage: [profileImage2, profileImage, profileImage2],
         // extraImage :[myPanda01, myPanda02, myPanda03],
         chName: "Soopin"
@@ -43,9 +42,9 @@ const events = [
         triggerDirections: [LEFT, UP, DOWN],
         x: 1,
         y: 4,
-        text: ["My bank balance is almost empty.",
-            "Give me the opportunity to work as a software developer in Canada.",
-            "I am <b>PR</b> in Canada, so there is no problem with working visa :)"],
+        text: ["My bank balance is almost empty, so I am extremely interested in the opportunity to work as a software developer in Canada. ",
+            "I'm a Permanent Resident, so there are no work visa hurdles to clear!",
+        ],
         chImage: [profileImage],
         chName: "Soopin"
     },
@@ -55,8 +54,8 @@ const events = [
         x: 6,
         y: 1,
         text: ["This is my treasure box.",
-            getDialogString(["Do you want to know what my treasure is?",
-            "Talk to the four objects on the right and check the answers there."])
+            getDialogString(["Do you know what my treasure is?",
+            "You can find the answers through the four objects on the right."])
         ],
         chImage: [profileImage],
         chName: "Soopin"
@@ -66,11 +65,8 @@ const events = [
         triggerDirections: [UP],
         x: 2,
         y: 0,
-        text: ["I am on time & scheduled person.\n  I don't put off what I have to do."
-            , getDialogString(["if I late to work, there should be a reason."
-                , "I probably come out early."
-                , "however, sky train just stop by accident and I stuck in there."])
-
+        text: ["I am a punctual individual who prioritizеs еffеctivе timе managеmеnt."
+            , "I can mееt dеadlinеs and am committed to еxеcuting tasks promptly, with strong resistance to procrastination."
         ],
         chImage: [profileImage2, profileImage, profileImage2],
         chName: "Soopin"
@@ -81,10 +77,10 @@ const events = [
         x: 6,
         y: 4,
         text: [
-            "I love asian foods and huge fan of coffee."
-            , getDialogString(["My favorite coffee bean is <b>TOP SHELF</b> of pallet."])
-            , getDialogString(["If you like fruity flavors, you must like this one."
-                , "- please check here : <a href='https://palletcoffeeroasters.com/collections/coffee/products/top-shelf' target='_blank'>https://palletcoffeeroasters.com/collections/coffee/products/top-shelf</a>"])
+            "I enjoy Asian food and am a major coffee enthusiast."
+            , getDialogString(["My go-to choice of coffee bean is called <b>'Top Shelf'</b> from Pallet."])
+            , getDialogString(["If you're a fan of fruity flavors, you'll likely find this one irresistible!"
+                , "You can check it out here: : <a href='https://palletcoffeeroasters.com/collections/coffee/products/top-shelf' target='_blank'>https://palletcoffeeroasters.com/collections/coffee/products/top-shelf</a>"])
         ],
         chImage: [profileImage, profileImage2, profileImage],
         extraImage: [null, coffeebean, coffeebean],
@@ -95,8 +91,12 @@ const events = [
         triggerDirections: [UP],
         x: 7,
         y: 1,
-        text: ["My strenth is.. ",
-            "My strenth is.. \nI pick things up very quickly.", "I'm not good at English, but I believe that My English going to be better soon!"],
+        text: ["My strength is..."
+            ,getDialogString(["My strength is..."
+            ,"I am a quick learner. My ability to adapt is my core strength."])
+            ,getDialogString(["English is not my first language and I am still learning each day."
+            ,"I am confident that I will be able to speak fluently in time. "])
+        ],
         chImage: [profileImage],
         chName: "Soopin"
     },
@@ -105,8 +105,8 @@ const events = [
         triggerDirections: [UP],
         x: 8,
         y: 1,
-        text: [getDialogString(["I'm born and raised in South Korea.", "I'm fluent in Korean and Japanese both."]),
-            "if you have clients in Korea or Japan, It would be nice to have an employee who can communicate in a local language!"
+        text: [getDialogString(["I was born and raised in South Korea and am fluent in both Korean and Japanese."]),
+            "Should you have clients or stakeholders in Korea or Japan, my linguistic skills could serve as a valuable asset for effective communication."
         ],
         chImage: [profileImage],
         chName: "Soopin"
@@ -116,12 +116,10 @@ const events = [
         triggerDirections: [UP],
         x: 9,
         y: 1,
-        text: ["Why did I become a software developer?",
-            "My answer is...",
-            "When I speak Japanese, I can communicate with people only who know Japanese.",
-            "However, I thought I could communicate with any computer programmer in the world by programming language.",
-            "And I could create what I imagine like as this portpolio web app!",
-            "That was why I studied programming and became a software developer."
+        text: ["Why did I choose a career in software development? ",
+            getDialogString(["The reason is straightforward: the field of software development serves as a canvas upon which I can manifest my creative visions.","I find immense joy in crafting something new from scratch."])
+            , "Moreover, the profession allows me to collaborate with a diverse array of developers."
+            , "The experience of working collectively to accomplish large-scale tasks has been highly rewarding. These compelling factors have fueled my desire to continue pursuing a career in software development."
         ],
         chImage: [profileImage],
         chName: "Soopin"
@@ -131,8 +129,8 @@ const events = [
         triggerDirections: [UP],
         x: 10,
         y: 1,
-        text: ["I'm a goal-oriented person.",
-            "I believe that I grow up through work and I want to have a good influence through my work."
+        text: ["I am a goal-oriented person.",
+            "I believe that personal growth is achieved through dedication and hard work, and I aspire to make a positive impact through my work."
         ],
         chImage: [profileImage],
         chName: "Soopin"
