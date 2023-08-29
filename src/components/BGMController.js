@@ -5,31 +5,31 @@ import {BsVolumeMuteFill, BsVolumeUpFill} from "react-icons/bs";
 
 function BGMController() {
     const [isPlaying, setIsPlaying] = useState(false);
-    const [volume, setVolume] = useState(0.5);
+    const [volume, setVolume] = useState(0.2);
     const audioRef = useRef(null);
 
     useEffect(() => {
         audioRef.current.volume = volume;
     }, [volume]);
 
-    const handlePlayPause = () => {
-        if (audioRef.current) {
-            if (isPlaying) {
-                audioRef.current.pause();
-            } else {
-                audioRef.current.play();
-            }
-            setIsPlaying(!isPlaying);
-        }
-    };
+    // const handlePlayPause = () => {
+    //     if (audioRef.current) {
+    //         if (isPlaying) {
+    //             audioRef.current.pause();
+    //         } else {
+    //             audioRef.current.play();
+    //         }
+    //         setIsPlaying(!isPlaying);
+    //     }
+    // };
 
-    const handleVolumeChange = (event) => {
-        const volumeValue = event.target.value;
-        setVolume(volumeValue);
-        if (audioRef.current) {
-            audioRef.current.volume = volumeValue;
-        }
-    };
+    // const handleVolumeChange = (event) => {
+    //     const volumeValue = event.target.value;
+    //     setVolume(volumeValue);
+    //     if (audioRef.current) {
+    //         audioRef.current.volume = volumeValue;
+    //     }
+    // };
     
     return (
         <div className='audioPlayer'>

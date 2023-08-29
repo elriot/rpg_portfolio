@@ -1,7 +1,7 @@
 import './App.css';
 import MenuPage from './pages/MenuPage';
 import MapStartPage from './pages/MapStartPage';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import MapLeftPage from './pages/MapLeftPage';
 import MapUpPage from './pages/MapUpPage';
 import { PortfolioProvider } from './context/PortfolioContext';
@@ -30,8 +30,8 @@ function App() {
                     {keyControllerVisible && <ControllerButtons />}
                 </Router>
             </div>
-            {/* <h1 className="App">Hello, Tailwind CSS!</h1>
-            <p className="App">This is an example of Tailwind CSS usage.</p> */}
+            {/* {/* <h1 className="App">Hello, Tailwind CSS!</h1> */}
+            <p className="App">hello2</p>
         </PortfolioProvider>
     );
 }
