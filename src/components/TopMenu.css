@@ -1,0 +1,35 @@
+.top-controller {
+    /* background-color: red; */
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width:960px;
+    align-items: center;
+    /* justify-content: center; */
+  }
+  
+  .bgm-controller{
+    position:relative;
+    /* top:0px; */
+    left: 580px;  
+    /* background-color: pink; */
+  }
+  .keyboard-controller-button{
+    position: absolute;
+    right: 0px;
+    width: 40px;
+    height: 40px;
+    padding: 3px;
+    font-size: x-large;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 2px solid #ccc;
+    color: #ccc;
+    transition: background-color 0.3s;
+  }
+  
+  .keyboard-controller-button.visible {
+    background-color: #ccc;
+    border: 2px solid #ccc;
+    color: white;
+  }

@@ -1,10 +1,10 @@
-import "./ModalBox.css";
+import "./HowToPlayModalBox.css";
 import image01 from "../images/howtoplay/01.png";
 import image02 from "../images/howtoplay/02.png";
 import image03 from "../images/howtoplay/03.png";
 function ModalBox({ style, onClick }) {
     return (
-        <div className="modal-container">
+        <div className="modal-container" onClick={() => { onClick() }}>
             <button className="modal-close-button" onClick={() => { onClick() }}>close</button>
             <div className="modal-contents-container">
                 <div className="title-container">

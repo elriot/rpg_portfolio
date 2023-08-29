@@ -1,4 +1,4 @@
-export function arraysHaveSameElements(a, b) {
+function arraysHaveSameElements(a, b) {
     if (a.length !== b.length) {
         return false;
     }
@@ -14,3 +14,15 @@ export function arraysHaveSameElements(a, b) {
 
     return true;
 }
+function getDialogString(strings) {
+    return strings.join('\n');
+}
+function containsHTML(text) {
+    const reg = /<\/?[a-z][\s\S]*>/i;
+    return reg.test(text);
+}
+function isBase64Image(src) {
+    return /^data:image\/[^;]+;base64,/.test(src);
+}
+
+export {arraysHaveSameElements, getDialogString, containsHTML, isBase64Image}

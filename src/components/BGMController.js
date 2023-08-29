@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import bgm from "../music/bgm.mp3";
 import "./BGMController.css"
+import {BsVolumeMuteFill, BsVolumeUpFill} from "react-icons/bs";
 
 function BGMController() {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -29,13 +30,13 @@ function BGMController() {
             audioRef.current.volume = volumeValue;
         }
     };
-
+    
     return (
         <div className='audioPlayer'>
-            <audio ref={audioRef} src={bgm} loop volume={volume} autoPlay></audio>
-
-            <div className="container">
+            <audio ref={audioRef} src={bgm} loop volume={volume} controls autoPlay></audio>            
+            {/* <div className="container">
                 <button onClick={handlePlayPause}>
+                    <span className='audio-volume-icon'></span>
                     {isPlaying ? 'Pause' : 'Play'}
                 </button>
                 <input
@@ -46,9 +47,7 @@ function BGMController() {
                     value={volume}
                     onChange={handleVolumeChange}
                 />
-            </div>
-
-
+            </div> */}
         </div>
     );
 }

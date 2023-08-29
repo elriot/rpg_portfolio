@@ -6,7 +6,6 @@
   position: relative;
 }
 
-
 a {
   color: greenyellow;
   text-decoration: underline;  
@@ -14,6 +13,10 @@ a {
 
 
 
+
+
+/* top: -170px;
+right: -320px; */
 /* .transition-slide {
   transition: transform 0.3s ease-in-out;
 }

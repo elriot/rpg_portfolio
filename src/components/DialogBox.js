@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './DialogBox.css';
 import classNames from 'classnames';
+import {isBase64Image, containsHTML} from "../util/utils";
 
 function getImageByIndex(images, index) {
     if (!images) return null;
     return images.length === 1 ? images[0] : images[index];
 }
-function containsHTML(text) {
-    const reg = /<\/?[a-z][\s\S]*>/i; 
-    return reg.test(text);
-}
-function isBase64Image(src) {
-    return /^data:image\/[^;]+;base64,/.test(src);
-  }
+
 function DialogBox({ text, options, isVisible, onClose, characterImage, extraImage, chName, onOptionSelected, ...rest }) {
     const [index, setIndex] = useState(0);
     const [selectedOptionIndex, setSelectedOptionIndex] = useState(0);

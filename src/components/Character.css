@@ -59,3 +59,6 @@
   .character.up {
     animation-name: walkAnimUp;
   }
+  .audio-volume-icon{
+    font-size: xx-large;
+  }

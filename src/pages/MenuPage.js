@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import MenuBox from "../components/MenuBox";
 import { PAGE_SIZE } from "../util/constants";
 import { useEffect, useState } from "react";
-import ModalBox from "../components/ModalBox";
+import HowToPlayModalBox from "../components/HowToPlayModalBox";
 
 function MenuPage({ className, size, onClick }) {
     const styles = { ...PAGE_SIZE, backgroundColor: "#2f4f4f" };
@@ -37,7 +37,7 @@ function MenuPage({ className, size, onClick }) {
         }
         {howToPlayVisible &&
             <div style={{ width: "80%", height: "80%" }}>
-                <ModalBox onClick={handleCloseClick}/>
+                <HowToPlayModalBox onClick={handleCloseClick}/>
             </div>
         }
     </div>

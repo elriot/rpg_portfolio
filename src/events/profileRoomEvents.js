@@ -5,6 +5,8 @@ import profileImage2 from '../images/picture/profile_photo2.png';
 import myPanda01 from "../images/portfolio/panda/myPanda_01.png";
 import myPanda02 from "../images/portfolio/panda/myPanda_02.png";
 import myPanda03 from "../images/portfolio/panda/myPanda_03.png";
+import coffeebean from "../images/picture/topshelf.png";
+import { getDialogString } from "../util/utils";
 
 const map = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -29,11 +31,11 @@ const events = [
         triggerDirections: [UP],
         x: 4,
         y: 0,
-        text: ["Hello! \n I'm Soopin Kim. I'm Software Developer. \n"
-            , "I have 3 years 8 month experience as Software Development In South Korea."
-            , "you can check my profile in Linkedin.\n <a href='https://www.linkedin.com/in/soopin-kim-9099a426a/' target='_blank'>Click here!</a>"],
-        chImage: [profileImage2,profileImage,profileImage2],
-        extraImage :[myPanda01, myPanda02, myPanda03],
+        text: [getDialogString(["Hello!", "I'm Soopin Kim. I'm Software Developer."])
+            , "I have 3 years 8 month experience as Web and Software Development In South Korea."
+            , getDialogString(["you can check my profile in Linkedin.", "<a href='https://www.linkedin.com/in/soopin-kim-9099a426a/' target='_blank'>https://www.linkedin.com/in/soopin-kim-9099a426a/</a>"])],
+        chImage: [profileImage2, profileImage, profileImage2],
+        // extraImage :[myPanda01, myPanda02, myPanda03],
         chName: "Soopin"
     },
     {
@@ -41,7 +43,9 @@ const events = [
         triggerDirections: [LEFT, UP, DOWN],
         x: 1,
         y: 4,
-        text: ["My basket..precious"],
+        text: ["My bank balance is almost empty.",
+            "Give me the opportunity to work as a software developer in Canada.",
+            "I am <b>PR</b> in Canada, so there is no problem with working visa :)"],
         chImage: [profileImage],
         chName: "Soopin"
     },
@@ -50,7 +54,10 @@ const events = [
         triggerDirections: [RIGHT, UP],
         x: 6,
         y: 1,
-        text: ["My strength is..\n "],
+        text: ["This is my treasure box.",
+            getDialogString(["Do you want to know what my treasure is?",
+            "Talk to the four objects on the right and check the answers there."])
+        ],
         chImage: [profileImage],
         chName: "Soopin"
     },
@@ -59,10 +66,13 @@ const events = [
         triggerDirections: [UP],
         x: 2,
         y: 0,
-        text: ["I am on time & scheduled person.\n I tend to complete tasks ahead of time if possible. ",
-            "remember! \nif I late to work, there should be a reason. \nI probably come out early.\n however, sky train just stop by accident and I stuck in there."
+        text: ["I am on time & scheduled person.\n  I don't put off what I have to do."
+            , getDialogString(["if I late to work, there should be a reason."
+                , "I probably come out early."
+                , "however, sky train just stop by accident and I stuck in there."])
+
         ],
-        chImage: [profileImage2,profileImage,profileImage2],
+        chImage: [profileImage2, profileImage, profileImage2],
         chName: "Soopin"
     },
     {
@@ -71,9 +81,13 @@ const events = [
         x: 6,
         y: 4,
         text: [
-            "Once I begin liking some thing, \nI generally tend to passionately engage with it for a long time. \n\nI continue to keep a keenness for the video games I played all through my youth: Princess Maker, Firland Saga, and The Sims, Age of Discovery. \n"
+            "I love asian foods and huge fan of coffee."
+            , getDialogString(["My favorite coffee bean is <b>TOP SHELF</b> of pallet."])
+            , getDialogString(["If you like fruity flavors, you must like this one."
+                , "- please check here : <a href='https://palletcoffeeroasters.com/collections/coffee/products/top-shelf' target='_blank'>https://palletcoffeeroasters.com/collections/coffee/products/top-shelf</a>"])
         ],
-        chImage: [profileImage],
+        chImage: [profileImage, profileImage2, profileImage],
+        extraImage: [null, coffeebean, coffeebean],
         chName: "Soopin"
     },
     {
@@ -82,7 +96,7 @@ const events = [
         x: 7,
         y: 1,
         text: ["My strenth is.. ",
-        "My strenth is.. \nI pick things up very quickly.", "I'm not good at English, but I believe that My English going to be better soon!"],
+            "My strenth is.. \nI pick things up very quickly.", "I'm not good at English, but I believe that My English going to be better soon!"],
         chImage: [profileImage],
         chName: "Soopin"
     },
@@ -91,8 +105,8 @@ const events = [
         triggerDirections: [UP],
         x: 8,
         y: 1,
-        text: ["I'm born and raised in South Korea. \n I'm fluent in Korean and Japanese both.",
-            "I worked in Japanese for a company that I got a job at when I was in the 4th grade of university.\nI can do business in Japanese such as phone calling, sending and receiving mail and writing documents."
+        text: [getDialogString(["I'm born and raised in South Korea.", "I'm fluent in Korean and Japanese both."]),
+            "if you have clients in Korea or Japan, It would be nice to have an employee who can communicate in a local language!"
         ],
         chImage: [profileImage],
         chName: "Soopin"
@@ -103,8 +117,8 @@ const events = [
         x: 9,
         y: 1,
         text: ["Why did I become a software developer?",
-            "The answer is...",
-            "The answer is...\n\nWhen I speak Japanese, I can communicate with people who know Japanese.",
+            "My answer is...",
+            "When I speak Japanese, I can communicate with people only who know Japanese.",
             "However, I thought I could communicate with any computer programmer in the world by programming language.",
             "And I could create what I imagine like as this portpolio web app!",
             "That was why I studied programming and became a software developer."
@@ -117,16 +131,12 @@ const events = [
         triggerDirections: [UP],
         x: 10,
         y: 1,
-        text: ["I'm very passionate.",
-            "",
-            "The answer is...\n\nWhen I speak Japanese, I can communicate with people who know Japanese.",
-            "However, I thought I could communicate with any developer in the world by programming language.",
-            "And I could create what I imagine like as this portpolio web app!",
-            "That was why I studied programming and became a software developer."
+        text: ["I'm a goal-oriented person.",
+            "I believe that I grow up through work and I want to have a good influence through my work."
         ],
         chImage: [profileImage],
         chName: "Soopin"
     },
 ]
 
-export {doors, events, map};
+export { doors, events, map };

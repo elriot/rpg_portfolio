@@ -1,5 +1,5 @@
 import { UP, DOWN,RIGHT,LEFT } from "../util/constants"
-import { getDialogString } from "../util/strings"
+import { getDialogString } from "../util/utils"
 import myPanda01 from "../images/portfolio/panda/myPanda_01.png";
 import myPanda02 from "../images/portfolio/panda/myPanda_02.png";
 import myPanda03 from "../images/portfolio/panda/myPanda_03.png";
@@ -79,7 +79,7 @@ const events = [
                 "This is Weather App."
                 ,"You can simply check current Weather in the major city in Canada."
                 ,"- live webpage : <a href='https://elriot.github.io/weather' target='_blank'>https://elriot.github.io/weather</a>🌞"
-                ,"- github : <a href='https://github.com/elriot/panda' target='_blank'>https://github.com/elriot/panda</a>"
+                ,"- github : <a href='https://github.com/elriot/weather' target='_blank'>https://github.com/elriot/weather</a>"
             ])
             ,getDialogString(["You can choose your city and unit."])
             ,getDialogString(["The gradient in the background changes with local time and weather"])
@@ -141,9 +141,12 @@ const events = [
         y: 0,
         text: [getDialogString([
                 "This is rpg portfolio App.😊"                
-                ,"- live webpage : <a href='https://elriot.github.io/weather' target='_blank'>https://elriot.github.io/weather</a>🌞"
-                ,"- github : <a href='https://github.com/elriot/panda' target='_blank'>https://github.com/elriot/panda</a>"
-            ])   
+                ,"- live webpage : <a href='https://elriot.github.io/rpg_portfolio' target='_blank'>https://elriot.github.io/rpg_portfolio</a>🌞"
+                ,"- github : <a href='https://github.com/elriot/rpg_portfolio' target='_blank'>https://github.com/elriot/rpg_portfolio</a>"
+        ])
+            ,"This is the web application you are now playing!"
+            ,"This is the portfolio room, and the other room is the profile room."
+            ,"Please check the profile room !" 
         ],
         extraImage:[null],
         door: "up", /* move map after text */
