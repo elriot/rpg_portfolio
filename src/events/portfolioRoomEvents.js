@@ -18,6 +18,8 @@ import myCondoSignupValid from "../images/portfolio/condo/condo_signup_validatio
 import myCondoUserList from "../images/portfolio/condo/condo_userlist.png";
 import myCondoSearchBar from "../images/portfolio/condo/condo_search.png";
 import myCondoMain from "../images/portfolio/condo/condo_main.png";
+import myRPGPortfolio from "../images/portfolio/portfolio/rpg.png";
+import myKimPortfolio from "../images/portfolio/portfolio/kim.png";
 
 const NUMBER_OF_PORTFOLIO = 4;
 const getAllPortfolio = () =>{
@@ -125,8 +127,9 @@ const events = [
                 "you can get current panda as png file."
             ])  
             , getDialogString([
-                "If you want to see my code, please visit to my github repository",
-                "✅<a href='https://github.com/elriot/panda' target='_blank'>https://github.com/elriot/panda</a>"
+                "If you want to see my code, please visit to my github repository"
+                ,"✅<a href='https://github.com/elriot/panda' target='_blank'>https://github.com/elriot/panda</a>"
+                
             ])  
         ],
         extraImage: [myPanda01, myPanda_categoery, myPanda_items, null, myPanda_function_01, myPanda_function_01, myPanda_function_01, myPanda_function_01, myPanda_function_02],
@@ -145,10 +148,17 @@ const events = [
                 ,"- github : <a href='https://github.com/elriot/rpg_portfolio' target='_blank'>https://github.com/elriot/rpg_portfolio</a>"
         ])
             ,"This is the web application you are now playing!"
-            ,"This is the portfolio room, and the other room is the profile room."
-            ,"Please check the profile room !" 
+            ,getDialogString([
+                "This is the portfolio room, and the other room is the profile room."
+            ,"Please check the profile room too.😄"])
+            ,getDialogString([
+                "If you'd like to check another portfolio webpage, please click the following link."
+                ,"It's also built using React."
+                ,"- live webpage : <a href='https://elriot.github.io/kim_portfolio' target='_blank'>https://elriot.github.io/kim_portfolio</a>"
+                ,"- github : <a href='https://github.com/elriot/kim_portfolio' target='_blank'>https://github.com/elriot/kim_portfolio</a>"
+            ])
         ],
-        extraImage:[null],
+        extraImage:[myRPGPortfolio,myRPGPortfolio,myRPGPortfolio, myKimPortfolio],
         door: "up", /* move map after text */
         chName: "Soopin"
     },
