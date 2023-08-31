@@ -33,16 +33,24 @@ function MenuPage({ className, size, onClick }) {
         setHowToPlayVisible(false);
     }
     return (
-        <div className="menu-page-container" style={styles}>
-            {!howToPlayVisible && <p className="menu-page-title"  style={{ zIndex: 1 }} >Soopin Kim - Portfolio</p>}
-            {!howToPlayVisible ? (
-                <MenuBox onClick={handleClickButton} style={{ zIndex: 2 }} />
-            ) : (
-                <div className="how-to-play-container">
-                    <HowToPlayModalBox onClick={handleCloseClick} />
-                </div>
-            )}
+        <div>
+            <div className="menu-page-container" style={styles}>
+                {!howToPlayVisible && <p className="menu-page-title" style={{ zIndex: 1 }} >Soopin Kim - Portfolio</p>}
+                {!howToPlayVisible ? (
+                    <MenuBox onClick={handleClickButton} style={{ zIndex: 2 }} />
+                ) : (
+                    <div className="how-to-play-container">
+                        <HowToPlayModalBox onClick={handleCloseClick} />
+                    </div>
+                )}
 
+            </div>
+            <p className="text-lg"> 
+                <b>- Link to ordinary Portfolio </b>:
+                <a href="https://elriot.github.io/kim_portfolio/" target="_blank" rel="noreferrer" className="text-blue-600 ml-2">
+                    Click Here!
+                </a>
+            </p>
         </div>
     );
 

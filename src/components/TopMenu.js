@@ -8,7 +8,7 @@ function TopMenu({ onClick, isOn }) {
         onClick();
     }
     const handleDoubleClick = (e) => {
-        console.log("eee")
+        // console.log("eee")
         e.preventDefault();
     };
     return (
